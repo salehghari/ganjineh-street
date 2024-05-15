@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Slide, useScrollTrigger } from '@mui/material';
 import { useState } from 'react';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
 
 interface Props {
   window?: () => Window;
@@ -12,16 +14,16 @@ interface Props {
 const drawerWidth = 240;
 const navItems = [
   {
-    text: "خانه",
-    link: ""
-  },
-  {
-    text: "درباره ما",
-    link: "#about-us"
+    text: "چطوری بازی کنم؟",
+    link: "#how-to-play"
   },
   {
     text: "تماس با ما",
     link: "contact-us"
+  },
+  {
+    text: "درباره ما",
+    link: "#about-us"
   }
 ];
 
@@ -40,10 +42,12 @@ export default function Navbar(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <div className="flex flex-col items-center mt-1 mb-2">
-      <Image src="/brand-logo.png" alt="logo" width="56" height="56" />
-      <Typography className="text-xs text-gray-600" variant="subtitle2">
-        گنجینه‌استریت
-      </Typography>
+        <Link href="/" className="flex flex-col items-center">
+          <Image src="/brand-logo.png" alt="logo" width="56" height="56" />
+          <Typography className="text-sm text-gray-600" variant="subtitle2">
+            گنجینه‌استریت
+          </Typography>
+        </Link>
       </div>
       <Divider />
       <List>
@@ -67,7 +71,7 @@ export default function Navbar(props: Props) {
       <CssBaseline />
       <Slide className="border-b border-gray-400/30 shadow-none bg-black/5 backdrop-blur-md" appear={false} direction="down" in={!trigger}>
         <AppBar component="nav">
-          <Toolbar className="min-[600px]:px-12">
+          <Toolbar className="sm:px-12">
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -77,16 +81,21 @@ export default function Navbar(props: Props) {
             >
               <MenuIcon />
             </IconButton>
-            <Image className="max-[599px]:mr-auto" src="/brand-logo.png" alt="logo" width="56" height="56" />
+            <Link className="max-[599px]:hidden"  href="/">
+              <Image src="/brand-logo.png" alt="logo" width="56" height="56" />
+            </Link>
             <Box sx={{ display: { xs: 'none', sm: 'block' }, marginRight: 3 }}>
               {navItems.map((item) => (
-                <Link href={`/${item.link}`}>
-                  <Button key={item.link} sx={{ color: '#000' }}>
+                <Link className="mx-2" key={item.link} href={`/${item.link}`}>
+                  <Button sx={{ color: '#000' }}>
                     {item.text}
                   </Button>
                 </Link>
               ))}
             </Box>
+            <div className="flex-1 flex justify-end">
+              <Button className="py-2 px-3 bg-[#111827] hover:bg-[#161f33] rounded-full" variant="contained" endIcon={<AccountCircleIcon className="-ml-2 mr-2" />}>ورود / ثبت نام</Button>
+            </div>
           </Toolbar>
         </AppBar>
       </Slide>

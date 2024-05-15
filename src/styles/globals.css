@@ -10,3 +10,6 @@
   --main-color: #111827;
   scroll-behavior: smooth;
 }
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}

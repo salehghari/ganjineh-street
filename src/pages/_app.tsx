@@ -19,9 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
         <Component {...pageProps} />
 
-        <Container className="flex justify-center mb-2">
+        <Container className="flex justify-center mb-2 text-center">
           <Typography variant="subtitle1" className="text-gray-600">
-            گنجینه‌استریت. تمامی حقوق محفوظ است. 2024 ©
+            1403 - کلیه حقوق این وبسایت به <span className="font-semibold">گنجینه‌استریت</span> تعلق دارد.
           </Typography>
         </Container>
       </div>
