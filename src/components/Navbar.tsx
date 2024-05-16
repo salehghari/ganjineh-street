@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Slide, useScrollTrigger } from '@mui/material';
 import { useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LoginIcon from '@mui/icons-material/Login';
 
 interface Props {
   window?: () => Window;
@@ -94,7 +93,7 @@ export default function Navbar(props: Props) {
               ))}
             </Box>
             <div className="flex-1 flex justify-end">
-              <Button className="py-2 px-3 bg-[#111827] hover:bg-[#161f33] rounded-full" variant="contained" endIcon={<AccountCircleIcon className="-ml-2 mr-2" />}>ورود / ثبت نام</Button>
+              <Button className="max-[599px]:py-1 py-2 px-3 bg-[#111827] hover:bg-[#161f33] rounded-full" variant="contained" endIcon={<AccountCircleIcon className="-ml-2 mr-2" />}>ورود / ثبت نام</Button>
             </div>
           </Toolbar>
         </AppBar>

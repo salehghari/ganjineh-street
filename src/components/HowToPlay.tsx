@@ -1,6 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import Image from 'next/image';
 import AnimatedBox from "./AnimatedBox";
+import Link from 'next/link';
 
 export default function HowToPlay() {
   return (
@@ -16,7 +17,7 @@ export default function HowToPlay() {
           variant="subtitle1"
           className="text-lg max-sm:text-base text-gray-500 text-justify"
         >
-          آماده‌ی یک ماجراجویی هیجان‌انگیز در هستی؟
+          آماده‌ی یک ماجراجویی هیجان‌انگیز هستی؟
         </Typography>
       </AnimatedBox>
       
@@ -52,7 +53,13 @@ export default function HowToPlay() {
             variant="subtitle1"
             className="text-base text-gray-500"
           >
-            به صفحه‌ی اینستاگرام ما سر بزن و منتظر اعلام بازی باش.
+            به صفحه‌ی&nbsp;
+            <span className="hover:underline">
+              <Link target="_blank" className="ig-link" href="https://www.instagram.com/ganjinehstreet">
+              اینستاگرام ما
+              </Link>
+            </span>
+            &nbsp;سر بزن و منتظر اعلام بازی باش.
           </Typography>
         </div>
         <Image className="w-auto h-auto max-sm:hidden absolute top-1/2 -left-20 rotate-y-180" src="/arrow.svg" alt="arrow" width="48" height="175" />
