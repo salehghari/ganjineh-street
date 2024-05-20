@@ -4,7 +4,7 @@ import AnimatedBox from "./AnimatedBox";
 
 export default function ActiveGames() {
   return (
-    <Container id="active-games" className="flex flex-col items-center gap-6 mb-16">
+    <Container id="active-games" className="flex flex-col items-center gap-6 py-8">
       <AnimatedBox className="flex flex-col items-center gap-6 mb-2" startTrigger="top 80%" endTrigger="bottom 80%">
         <Typography
           variant="h2"

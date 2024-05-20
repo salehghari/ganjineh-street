@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Container, ThemeProvider, Typography, createTheme } from "@mui/material";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -13,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const theme = createTheme({
     typography: {
       "fontFamily": `"Vazir", sans-serif`,
-    }
+    },
   });
 
   const getPageTitle = (path: string): string => {
@@ -22,6 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
         return 'خانه | گنجینه استریت';
       case '/contact-us':
         return 'تماس با ما | گنجینه استریت';
+      case '/sign-up':
+        return 'ثبت نام | گنجینه استریت';
+      case '/sign-in':
+        return 'ورود به حساب | گنجینه استریت';
       default:
         return 'گنجینه استریت';
     }
@@ -43,8 +48,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
 
         <Container className="flex justify-center my-2 text-center">
-          <Typography variant="subtitle1" className="text-gray-600">
-            1403 - کلیه حقوق این وبسایت به <span className="font-semibold">گنجینه‌استریت</span> تعلق دارد.
+          <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
+            1403 - کلیه حقوق این وبسایت به <Link className="underline" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
           </Typography>
         </Container>
       </div>

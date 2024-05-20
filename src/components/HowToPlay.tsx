@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function HowToPlay() {
   return (
-    <Container id="how-to-play" className="flex flex-col items-center gap-6 mb-16 p-2">
+    <Container id="how-to-play" className="flex flex-col items-center gap-6 py-16 p-2">
       <AnimatedBox className="flex flex-col items-center gap-6 mb-2 relative" startTrigger="top 80%" endTrigger="bottom 80%">
         <Typography
           variant="h2"

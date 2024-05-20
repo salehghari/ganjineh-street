@@ -3,7 +3,7 @@ import AnimatedBox from "./AnimatedBox";
 
 export default function About() {
   return (
-    <Container id="about-us" className="flex flex-col items-center gap-6 mb-16">
+    <Container id="about-us" className="flex flex-col items-center gap-6 py-8">
       <AnimatedBox className="flex flex-col items-center gap-6 mb-2" startTrigger="top 80%" endTrigger="bottom 80%">
 				<Typography
 					variant="h2"

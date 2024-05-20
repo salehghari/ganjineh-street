@@ -6,7 +6,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 export default function contactUs() {
   return (
-    <Container className="flex items-stretch max-sm:flex-col-reverse sm:gap-10 -mt-12 mb-12 sm:max-h-[500px] w-full">
+    <Container className="flex items-stretch max-sm:flex-col-reverse sm:gap-10 mb-12 sm:max-h-[500px] w-full">
       <div className="flex flex-col justify-center flex-1 gap-6">
         <Typography
           variant="h2"
@@ -41,7 +41,7 @@ export default function contactUs() {
         </div>
       </div>
       <div className="flex justify-center items-center sm:w-1/2">
-        <Image className="object-contain" src="/contact-us.png" alt="contact us image" width="500" height="500" />
+        <Image className="object-contain" src="/contact-us.svg" alt="contact us image" width="500" height="500" />
       </div>
     </Container>
   )

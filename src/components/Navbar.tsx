@@ -93,7 +93,9 @@ export default function Navbar(props: Props) {
               ))}
             </Box>
             <div className="flex-1 flex justify-end">
-              <Button className="max-[599px]:py-1 py-2 px-3 bg-[#111827] hover:bg-[#161f33] rounded-full" variant="contained" endIcon={<AccountCircleIcon className="-ml-2 mr-2" />}>ورود / ثبت نام</Button>
+              <Link href="/sign-up">
+                <Button className="max-[599px]:py-1 py-2 px-3 bg-[#263238] hover:bg-[#1f292e] rounded-full" variant="contained" endIcon={<AccountCircleIcon className="-ml-2 mr-2" />}>ورود / ثبت نام</Button>
+              </Link>
             </div>
           </Toolbar>
         </AppBar>
@@ -115,7 +117,7 @@ export default function Navbar(props: Props) {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main">
         <Toolbar />
       </Box>
     </Box>
