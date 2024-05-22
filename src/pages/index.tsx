@@ -19,7 +19,7 @@ export default function Home() {
             <div className="flex flex-col w-3/5 max-md:w-full justify-center items-center gap-8 pt-20 mb-16">
               <Typography
                 variant="h2"
-                className="text-header font-bold text-8xl max-lg:text-6xl max-sm:text-5xl"
+                className="text-header font-[aviny] font-semibold text-9xl max-lg:text-7xl max-sm:text-6xl"
               >
                 گنجینه‌استریت
               </Typography>

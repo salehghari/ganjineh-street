@@ -2,11 +2,12 @@ import { Container, Typography } from "@mui/material";
 import PhotoIcon from '@mui/icons-material/Photo';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import Link from 'next/link';
 
 
 export default function gameDetail() {
   return (
-    <Container className="flex items-stretch max-sm:flex-col-reverse sm:gap-10 mb-12 sm:max-h-[500px] w-full">
+    <Container className="flex items-stretch max-sm:flex-col-reverse sm:gap-10 mb-12 mt-6 sm:max-h-[500px] w-full">
       <div className="flex flex-col justify-center flex-1 gap-6">
         <Typography
           variant="h1"
@@ -31,6 +32,9 @@ export default function gameDetail() {
             <PlaceOutlinedIcon className="py-[2px]" />
             <span className="text-[#000000de]">مکان: </span>آرکید 
           </Typography>
+          <Link href="/">
+            شروع بازی
+          </Link>
         </div>
       </div>
       <div className="flex justify-center items-center sm:w-1/2">

@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'aviny';
+  src: url('/fonts/aviny_web.woff2') format('woff2'),
+       url('/fonts/aviny_web.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'iransans';
+  src: url('/fonts/IRANSansWeb_Black.woff2') format('woff2'),
+       url('/fonts/IRANSansWeb_Black.woff') format('woff'),
+       url('/fonts/IRANSansWeb_Black.eot') format('eot');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   margin: 0;
   padding: 0;
@@ -10,6 +26,9 @@
   --main-color: #263238;
   --main-hover-color: #1f292e;
   scroll-behavior: smooth;
+}
+body {
+  background-color: #f5f5f5;
 }
 
 .main-text-color {

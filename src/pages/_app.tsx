@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const theme = createTheme({
     typography: {
-      "fontFamily": `"Vazir", sans-serif`,
+      "fontFamily": `"iransans", sans-serif`,
     },
   });
 

@@ -20,10 +20,10 @@ export default function ActiveGames() {
           این بازی‌ها را اکنون اجرا کنید و جوایز شگفت‌انگیز ببرید!
         </Typography>
       </AnimatedBox>
-      <div className="flex max-sm:flex-col justify-center gap-4 w-full">
-        <AnimatedBox className="w-[30%] max-sm:w-full rounded-[20px] border border-gray-200" startTrigger="top 80%" endTrigger="bottom 80%">
+      <div className="flex items-center max-sm:flex-col justify-center gap-4 w-full">
+        <AnimatedBox className="transition-shadow shadow-[0_2px_16px_rgba(4,10,31,.06)] hover:shadow-[0_2px_16px_rgba(4,10,31,.12)] w-[30%] max-sm:w-5/6 rounded-[20px]" startTrigger="top 80%" endTrigger="bottom 80%">
           <Link href="/game-detail">
-            <Button className="w-full h-full block p-0 rounded-[20px] text-inherit">
+            <Button className="w-full h-full hover:bg-inherit block p-0 rounded-[20px] text-inherit">
               <div className="p-3 pb-0 flex gap-2 flex-col items-center">
                 <div className="rounded-xl w-full h-48 bg-gray-200 text-white flex justify-center items-center"><PhotoIcon/></div>
                 <Typography variant="h4" className="text-xl">
@@ -42,9 +42,9 @@ export default function ActiveGames() {
             </Button>
           </Link>
         </AnimatedBox>
-        <AnimatedBox className="w-[30%] max-sm:w-full border rounded-[20px] border-gray-200" startTrigger="top 80%" endTrigger="bottom 80%">
+        <AnimatedBox className="transition-shadow shadow-[0_2px_16px_rgba(4,10,31,.06)] hover:shadow-[0_2px_16px_rgba(4,10,31,.12)] w-[30%] max-sm:w-5/6 rounded-[20px]" startTrigger="top 80%" endTrigger="bottom 80%">
           <Link href="/game-detail">
-            <Button className="w-full h-full block p-0 rounded-[20px] text-inherit">
+            <Button className="w-full h-full hover:bg-inherit block p-0 rounded-[20px] text-inherit">
               <div className="p-3 pb-0 flex gap-2 flex-col items-center">
                 <div className="rounded-xl w-full h-48 bg-gray-200 text-white flex justify-center items-center"><PhotoIcon/></div>
                 <Typography variant="h4" className="text-xl">
@@ -63,9 +63,9 @@ export default function ActiveGames() {
             </Button>
           </Link>
         </AnimatedBox>
-        <AnimatedBox className="w-[30%] max-sm:w-full border rounded-[20px] border-gray-200" startTrigger="top 80%" endTrigger="bottom 80%">
+        <AnimatedBox className="transition-shadow shadow-[0_2px_16px_rgba(4,10,31,.06)] hover:shadow-[0_2px_16px_rgba(4,10,31,.12)] w-[30%] max-sm:w-5/6 rounded-[20px]" startTrigger="top 80%" endTrigger="bottom 80%">
           <Link href="game-detail">
-            <Button className="w-full h-full block p-0 rounded-[20px] text-inherit">
+            <Button className="w-full h-full hover:bg-inherit block p-0 rounded-[20px] text-inherit">
               <div className="p-3 pb-0 flex gap-2 flex-col items-center">
                 <div className="rounded-xl w-full h-48 bg-gray-200 text-white flex justify-center items-center"><PhotoIcon/></div>
                 <Typography variant="h4" className="text-xl">

@@ -1,7 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { Container } from '@mui/material';
 
 interface AnimatedBoxProps {
   startTrigger: string,
