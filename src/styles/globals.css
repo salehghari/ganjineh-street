@@ -8,7 +8,22 @@
   box-sizing: border-box;
   font-family: 'Vazir', sans-serif;
   --main-color: #263238;
+  --main-hover-color: #1f292e;
   scroll-behavior: smooth;
+}
+
+.main-text-color {
+  color: var(--main-color) !important;
+}
+.main-bg-color {
+  background-color: var(--main-color) !important;
+}
+
+.main-bg-hover:hover {
+  background-color: var(--main-hover-color) !important;
+}
+.main-text-hover:hover {
+  color: var(--main-hover-color) !important;
 }
 .rotate-y-180 {
   transform: rotateY(180deg);
@@ -19,7 +34,6 @@
   -webkit-text-fill-color: transparent;
   filter: brightness(75%);
 }
-
 
 #home {
   position: relative;

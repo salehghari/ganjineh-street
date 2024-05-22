@@ -20,8 +20,7 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      phoneNumber: data.get("phone-number"),
     });
   };
 
@@ -37,43 +36,31 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#263238' }}>
+          <Avatar className="main-bg-color" sx={{ m: 1 }}>
             <LoginRoundedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             ورود به گنجینه استریت
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" className="w-full" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="ایمیل"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="رمز عبور"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  id="phone-number"
+                  label="شماره موبایل"
+                  name="phone-number"
+                  autoComplete="tel"
                 />
               </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
+              className="main-bg-color main-bg-hover"
               variant="contained"
-              sx={{ mt: 3, mb: 2, fontSize: 16, bgcolor: "#263238", '&:hover': {
-                backgroundColor: '#1f292e',
-              }}}
+              sx={{ mt: 3, mb: 2, fontSize: 16 }}
             >
               ورود
             </Button>

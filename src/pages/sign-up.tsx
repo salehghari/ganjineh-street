@@ -26,6 +26,13 @@ export default function SignUp() {
     });
   };
 
+  const styles = () => ({
+    notchedOutline: {
+      borderWidth: "1px",
+      borderColor: "yellow !important"
+    }
+  });
+
   return (
     <CacheProvider value={cacheRtl}>
       <Container  component="main" maxWidth="xs">
@@ -38,7 +45,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#263238' }}>
+          <Avatar className="main-bg-color" sx={{ m: 1 }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -71,21 +78,10 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="ایمیل"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="رمز عبور"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  id="phone-number"
+                  label="شماره موبایل"
+                  name="phone-number"
+                  autoComplete="tel"
                 />
               </Grid>
             </Grid>
@@ -93,15 +89,14 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, fontSize: 16, bgcolor: "#263238", '&:hover': {
-                backgroundColor: '#1f292e',
-              }}}
+              className="main-bg-color main-bg-hover"
+              sx={{ mt: 3, mb: 2, fontSize: 16}}
             >
               ثبت نام
             </Button>
             <Grid container>
               <Grid item>
-                <Link className="underline text-[#263238] hover:no-underline" href="/sign-in">
+                <Link className="underline main-text-color hover:no-underline" href="/sign-in">
                   قبلا ثبت نام کردی؟ ورود
                 </Link>
               </Grid>

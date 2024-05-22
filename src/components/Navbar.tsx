@@ -94,7 +94,7 @@ export default function Navbar(props: Props) {
             </Box>
             <div className="flex-1 flex justify-end">
               <Link href="/sign-up">
-                <Button className="max-[599px]:py-1 py-2 px-3 bg-[#263238] hover:bg-[#1f292e] rounded-full" variant="contained" endIcon={<AccountCircleIcon className="-ml-2 mr-2" />}>ورود / ثبت نام</Button>
+                <Button className="max-[599px]:py-1 py-2 px-3 main-bg-color main-bg-hover rounded-full" variant="contained" endIcon={<AccountCircleIcon className="-ml-2 mr-2" />}>ورود / ثبت نام</Button>
               </Link>
             </div>
           </Toolbar>
