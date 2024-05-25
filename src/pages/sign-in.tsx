@@ -5,6 +5,7 @@ import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { CacheProvider } from '@emotion/react';
+import Link from 'next/link';
 
 
 
@@ -52,6 +53,7 @@ export default function SignIn() {
                   label="شماره موبایل"
                   name="phone-number"
                   autoComplete="tel"
+                  autoFocus
                 />
               </Grid>
             </Grid>
@@ -64,6 +66,13 @@ export default function SignIn() {
             >
               ورود
             </Button>
+            <Grid container>
+              <Grid item>
+                <Link className="underline main-text-color hover:no-underline" href="/sign-up">
+                  حساب کاربری نداری؟ ثبت نام
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>

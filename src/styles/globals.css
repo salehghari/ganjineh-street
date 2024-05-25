@@ -11,8 +11,10 @@
 }
 @font-face {
   font-family: 'iransans';
-  src: url('/fonts/IRANSansWeb_Black.woff2') format('woff2'),
-       url('/fonts/IRANSansWeb_Black.woff') format('woff'),
+  src: url('/fonts/IRANSansX-Bold.woff2') format('woff2'),
+       url('/fonts/IRANSansX-Bold.woff') format('woff'),
+       url('/fonts/IRANSansX-regular.woff2') format('woff2'),
+       url('/fonts/IRANSansX-regular.woff') format('woff')
        url('/fonts/IRANSansWeb_Black.eot') format('eot');
   font-weight: normal;
   font-style: normal;

@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
         <Component {...pageProps} />
 
-        <Container className="flex justify-center my-2 text-center">
+        <Container className="flex justify-center text-center">
           <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
             1403 - کلیه حقوق این وبسایت به <Link className="underline" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
           </Typography>
