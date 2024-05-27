@@ -27,7 +27,7 @@ export default function SignIn() {
 
   return (
     <CacheProvider value={cacheRtl}>
-      <Container  component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{

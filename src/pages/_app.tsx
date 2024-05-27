@@ -27,6 +27,10 @@ export default function App({ Component, pageProps }: AppProps) {
         return 'ثبت نام | گنجینه استریت';
       case '/sign-in':
         return 'ورود به حساب | گنجینه استریت';
+      case '/game-detail':
+        return ' جزئیات بازی | گنجینه استریت';
+      case '/game-detail/questions':
+        return ' سوالات بازی | گنجینه استریت';
       default:
         return 'گنجینه استریت';
     }
