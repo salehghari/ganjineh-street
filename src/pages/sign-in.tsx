@@ -10,17 +10,18 @@ import axios from 'axios';
 import { options } from '@/config/api';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-
-
+import { useDispatch } from 'react-redux';
+import { setFirstName, setLastName, setPhoneNumber } from '@/features/ganjinehSlice';
 
 
 export default function SignIn() {
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumberInput] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const dispatch = useDispatch();
 
   const router = useRouter()
 
@@ -37,7 +38,7 @@ export default function SignIn() {
       const response = await axios.post('http://localhost/api/sign-in?pre=true', {
         phoneNumber
       }, options);
-  
+
       setIsVerificationCodeSent(true);
       setErrorMessage("");
 
@@ -64,7 +65,18 @@ export default function SignIn() {
         phoneNumber,
         verificationCode
       });
-  
+
+      console.log(response.data);
+
+      dispatch(
+        setFirstName(response.data.firstName)
+      )
+      dispatch(
+        setLastName(response.data.lastName)
+      )
+      dispatch(
+        setPhoneNumber(response.data.phoneNumber)
+      )
       router.push("/");
       setErrorMessage("");
         
@@ -109,7 +121,7 @@ export default function SignIn() {
                     label="شماره موبایل"
                     name="phone-number"
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    onChange={(e) => setPhoneNumberInput(e.target.value)}
                     autoComplete="tel"
                     autoFocus
                   />
@@ -141,6 +153,7 @@ export default function SignIn() {
                     name="verificationCode"
                     value={verificationCode}
                     onChange={(e) => setVerificationCode(e.target.value)}
+                    autoFocus
                   />
                 </Grid>
               </Grid>

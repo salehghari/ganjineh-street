@@ -5,11 +5,53 @@ import Head from 'next/head';
 import { Container, ThemeProvider, Typography, createTheme } from "@mui/material";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import { Provider } from 'react-redux'
+import { store } from '@/app/store'
+import axios from 'axios';
+import { useEffect } from 'react';
+import { options } from "@/config/api";
+import { useDispatch } from 'react-redux';
+import { setFirstName, setIsSignedIn, setLastName, setPhoneNumber } from '@/features/ganjinehSlice';
 
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const { pathname } = router;
+
+  
+  const DispatchWrapper = () => {
+    const dispatch = useDispatch();
+
+    const handleJwt = async () => {
+      try {
+        const response = await axios.get('http://localhost/api/jwt', options);
+  
+        dispatch(
+          setFirstName(response.data.firstName)
+        )
+        dispatch(
+          setLastName(response.data.lastName)
+        )
+        dispatch(
+          setPhoneNumber(response.data.phoneNumber)
+        )
+
+        dispatch(
+          setIsSignedIn(true)
+        )
+      } catch (error: any) {
+        dispatch(
+          setIsSignedIn(false)
+        )
+      }
+    };
+
+    useEffect(() => {
+      handleJwt()
+    }, [dispatch]);
+
+    return <Component {...pageProps} />;
+  };
 
   const theme = createTheme({
     typography: {
@@ -39,24 +81,26 @@ export default function App({ Component, pageProps }: AppProps) {
 
 
   return (
-    <ThemeProvider theme={theme}>
-      <Head>
-        <title>{pageTitle}</title>
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
-      </Head>
-      <div className="App h-screen">
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Head>
+          <title>{pageTitle}</title>
+          <link rel="icon" href="/favicon.png" type="image/png" />
+          <link rel="apple-touch-icon" href="/favicon.png" />
+        </Head>
+        <div className="App h-screen">
 
-        <Navbar />
+          <Navbar />
 
-        <Component {...pageProps} />
+          <DispatchWrapper />
 
-        <Container className="flex justify-center text-center">
-          <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
-            1403 - کلیه حقوق این وبسایت به <Link className="underline" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
-          </Typography>
-        </Container>
-      </div>
-    </ThemeProvider>
+          <Container className="flex justify-center text-center">
+            <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
+              1403 - کلیه حقوق این وبسایت به <Link className="underline" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
+            </Typography>
+          </Container>
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 }

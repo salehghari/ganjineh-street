@@ -177,6 +177,7 @@ export default function SignUp() {
                     name="verificationCode"
                     value={verificationCode}
                     onChange={(e) => setVerificationCode(e.target.value)}
+                    autoFocus
                   />
                 </Grid>
               </Grid>
