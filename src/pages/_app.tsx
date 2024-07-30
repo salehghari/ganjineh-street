@@ -12,11 +12,16 @@ import { useEffect } from 'react';
 import { options } from "@/config/api";
 import { useDispatch } from 'react-redux';
 import { setFirstName, setIsSignedIn, setLastName, setPhoneNumber } from '@/features/ganjinehSlice';
+import { useParams } from "next/navigation";
 
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const { pathname } = router;
+
+  const params = useParams<{ missionID: string, levelID: string }>();
+  const missionId = params?.missionID;
+  const levelId = params?.levelID;
 
   
   const DispatchWrapper = () => {
@@ -68,11 +73,13 @@ export default function App({ Component, pageProps }: AppProps) {
       case '/sign-up':
         return 'ثبت نام | گنجینه استریت';
       case '/sign-in':
-        return 'ورود به حساب | گنجینه استریت';
-      case '/game-detail':
-        return ' جزئیات بازی | گنجینه استریت';
-      case '/game-detail/questions':
-        return ' سوالات بازی | گنجینه استریت';
+        return 'ورود به حساب | گنجینه استریت';  
+      case `/mission/[missionID]`:
+        return ' جزئیات ماموریت | گنجینه استریت';
+      case `/mission/[missionID]/levels`:
+        return ' مراحل | گنجینه استریت';
+      case `/mission/[missionID]/levels/[levelID]`:
+        return ` مرحله ${levelId ? levelId : ""} | گنجینه استریت`;
       default:
         return 'گنجینه استریت';
     }
@@ -88,17 +95,17 @@ export default function App({ Component, pageProps }: AppProps) {
           <link rel="icon" href="/favicon.png" type="image/png" />
           <link rel="apple-touch-icon" href="/favicon.png" />
         </Head>
-        <div className="App h-screen">
+        <div className="App flex flex-col min-h-screen">
 
           <Navbar />
 
           <DispatchWrapper />
 
-          <Container className="flex justify-center text-center">
+          <div className="flex justify-center text-center w-full mt-auto">
             <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
               1403 - کلیه حقوق این وبسایت به <Link className="underline" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
             </Typography>
-          </Container>
+          </div>
         </div>
       </ThemeProvider>
     </Provider>

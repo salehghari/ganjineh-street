@@ -65,12 +65,26 @@ export default function Navbar(props: Props) {
     dispatch(
       setIsSignedIn(false)
     )
-
-    console.log(response);
   };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      {isSignedIn && 
+        <>
+          <div className="flex items-center justify-center gap-2 my-2">
+            <AccountCircleIcon fontSize='large' className="text-gray-700"/>
+            <div className="flex flex-col">
+              <Typography className="text-gray-700 text-sm" variant="subtitle1">
+                {firstName} {lastName} 
+              </Typography>
+              <Typography className="text-gray-500 text-xs" variant="subtitle2">
+                {phoneNumber}
+              </Typography>
+            </div>
+          </div>
+          <Divider />
+        </>
+      }
       <div className="flex flex-col items-center mt-1 mb-2">
         <Link href="/" className="flex flex-col items-center">
           <Image src="/brand-logo.png" alt="logo" width="56" height="56" />
@@ -103,26 +117,32 @@ export default function Navbar(props: Props) {
         <AppBar component="nav">
           <Toolbar className="sm:px-6">
             <IconButton
+              className="min-[700px]:hidden"
               color="inherit"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' }, color: "#000" }}
+              sx={{ mr: 2, color: "#000" }}
             >
               <MenuIcon />
             </IconButton>
-            <Link className="max-[599px]:hidden ml-3"  href="/">
+            <Link className="max-[699px]:hidden ml-3"  href="/">
               <Image src="/brand-logo.png" alt="logo" width="56" height="56" />
             </Link>
-            <div className="flex flex-col">
-              <Typography className="text-gray-700 text-sm" variant="subtitle1">
-                {firstName} {lastName} 
-              </Typography>
-              <Typography className="text-gray-500 text-xs" variant="subtitle2">
-                {phoneNumber}
-              </Typography>
-            </div>
-            <Box sx={{ display: { xs: 'none', sm: 'block' }, marginRight: 3 }}>
+            {isSignedIn && 
+              <div className="flex items-center justify-center max-[699px]:hidden gap-2">
+                <AccountCircleIcon fontSize='large' className="text-gray-700"/>
+                <div className="flex flex-col">
+                  <Typography className="text-gray-700 text-sm" variant="subtitle1">
+                    {firstName} {lastName} 
+                  </Typography>
+                  <Typography className="text-gray-500 text-xs" variant="subtitle2">
+                    {phoneNumber}
+                  </Typography>
+                </div>
+              </div>
+            }
+            <Box className="hidden min-[700px]:block" sx={{ marginRight: 3 }}>
               {navItems.map((item) => (
                 <Link className="mx-2" key={item.link} href={`/${item.link}`}>
                   <Button sx={{ color: '#000' }}>
@@ -153,8 +173,8 @@ export default function Navbar(props: Props) {
           ModalProps={{
             keepMounted: true,
           }}
+          className="min-[700px]:hidden"
           sx={{
-            display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >

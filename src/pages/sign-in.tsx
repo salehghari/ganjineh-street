@@ -66,7 +66,6 @@ export default function SignIn() {
         verificationCode
       });
 
-      console.log(response.data);
 
       dispatch(
         setFirstName(response.data.firstName)

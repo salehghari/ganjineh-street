@@ -5,6 +5,13 @@ interface ganjinehState {
   lastName: string,
   phoneNumber: string,
   isSignedIn: boolean,
+  activeGames: any[],
+  singleGame: {
+    [key: string]: any
+  },
+  singleLevel: {
+    [key: string]: any
+  },
 }
 
 const initialState: ganjinehState = {
@@ -12,6 +19,9 @@ const initialState: ganjinehState = {
   lastName: "",
   phoneNumber: "",
   isSignedIn: false,
+  activeGames: [],
+  singleGame: {},
+  singleLevel: {},
 };
 
 const ganjinehSlice = createSlice({
@@ -30,6 +40,15 @@ const ganjinehSlice = createSlice({
     setIsSignedIn: (state, action: PayloadAction<boolean>) => {
       state.isSignedIn = action.payload;
     },
+    setActiveGames: (state, action: PayloadAction<[]>) => {
+      state.activeGames = action.payload;
+    },
+    setSingleGame: (state, action: PayloadAction<{}>) => {
+      state.singleGame = action.payload;
+    },
+    setSingleLevel: (state, action: PayloadAction<{}>) => {
+      state.singleLevel = action.payload;
+    },
   }
 })
 
@@ -37,7 +56,10 @@ export const {
   setFirstName,
   setLastName,
   setPhoneNumber,
-  setIsSignedIn
+  setIsSignedIn,
+  setActiveGames,
+  setSingleGame,
+  setSingleLevel,
 } = ganjinehSlice.actions;
 
 export default ganjinehSlice.reducer;
