@@ -10,10 +10,10 @@ export default function Levels() {
   let linkBtnParentClassName = 'w-[90px] h-[82px] bg-transparent mt-10 rounded-[50%]';
   let linkBtnClassName = 'w-16 h-[52px] select-none absolute left-[calc(50%-32px)] top-[calc(50%-30px)] flex justify-center items-center rounded-[50%] text-white text-2xl';
   let completed = ' bg-[#ffc700] shadow-[0_8px_0_0_rgb(230,159,0)]'
-  let current = ' main-bg-color main-bg-hover shadow-[0_8px_0_0_rgb(0,0,0)] active:shadow-[0_6px_0_0_rgb(0,0,0)] active:translate-y-[2px]'
-  let locked = ' main-bg-color shadow-[0_8px_0_0_rgb(0,0,0)]'
+  let current = ' main-bg-color main-bg-hover shadow-[0_8px_0_0_rgb(48,143,90)] active:shadow-[0_6px_0_0_rgb(48,143,90)] active:translate-y-[2px]'
+  let locked = ' main-bg-color shadow-[0_8px_0_0_rgb(48,143,90)]'
 
-  let currentParent = ' border-[15px] border-[#263238d3] cursor-pointer'
+  let currentParent = ' border-[15px] border-[#29754b] cursor-pointer'
   let lockedParent = ' opacity-50'
 
 
@@ -24,7 +24,7 @@ export default function Levels() {
           <Typography className="text-white text-xl" variant='h3'>
             ماموریت پارک درخشان
           </Typography>
-          <p onClick={() => router.push(`/mission/test-game`)} className="text-[#afafaf] text-sm mt-2 cursor-pointer">
+          <p onClick={() => router.push(`/mission/test-game`)} className="text-gray-100 text-sm mt-2 cursor-pointer">
             بازگشت به ماموریت
             <ArrowBackIcon />
           </p>
