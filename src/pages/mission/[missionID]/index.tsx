@@ -17,7 +17,7 @@ import Image from "next/image";
 import ErrorMessage from "@/components/ErrorMessage";
 
 
-export default function gameDetail() {
+export default function GameDetail() {
 
   const params = useParams<{ missionID: string }>();
   const id = params?.missionID;

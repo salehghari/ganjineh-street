@@ -18,7 +18,7 @@ import Image from 'next/image';
 
 
 
-export default function questions() {
+export default function Questions() {
   const router = useRouter()
 
   const [errorMessage, setErrorMessage] = useState('');

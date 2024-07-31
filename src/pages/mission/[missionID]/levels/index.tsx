@@ -10,7 +10,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 
-export default function questions() {
+export default function Levels() {
 
   const params = useParams<{ missionID: string }>();
   const id = params?.missionID;
