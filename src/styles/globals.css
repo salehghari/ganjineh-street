@@ -25,8 +25,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Vazir', sans-serif;
-  --main-color: #263238;
-  --main-hover-color: #1f292e;
+  --main-color: #3cb371;
+  --main-hover-color: #339c63;
   scroll-behavior: smooth;
 }
 body {

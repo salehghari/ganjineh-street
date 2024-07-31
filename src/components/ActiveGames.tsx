@@ -48,7 +48,7 @@ export default function ActiveGames() {
     <Container id="active-games" className="flex flex-col items-center gap-6 py-8 max-sm:px-0 relative">
       <Image className="absolute top-8 -left-4 rotate-90 -z-10" src="/doted.svg" alt="doted" width="267" height="117" />
       <Image className="absolute bottom-0 -right-4 -z-10" src="/doted.svg" alt="doted2" width="178" height="78" />
-      <div className="flex items-center max-sm:flex-col justify-center gap-4 w-full">
+      {/* <div className="flex items-center max-sm:flex-col justify-center gap-4 w-full">
         {activeGames.map((game) => (
           <div key={game.id} className="transition-shadow shadow-[0_2px_16px_rgba(4,10,31,.06)] hover:shadow-[0_2px_16px_rgba(4,10,31,.12)] w-[30%] max-sm:w-5/6 rounded-[20px] backdrop-blur-sm">
             <Link href={`/mission/${game.id}`}>
@@ -76,6 +76,33 @@ export default function ActiveGames() {
             </Link>
           </div>
         ))}
+      </div> */}
+      <div className="flex items-center max-sm:flex-col justify-center gap-4 w-full">
+        <div className="transition-shadow shadow-[0_2px_16px_rgba(4,10,31,.06)] hover:shadow-[0_2px_16px_rgba(4,10,31,.12)] w-[30%] max-sm:w-5/6 rounded-[20px] backdrop-blur-sm">
+          <Link href="/mission/test-game">
+            <Button className="w-full h-full hover:bg-inherit block p-0 rounded-[20px] text-inherit">
+              <div className="p-3 pb-0 flex gap-2 flex-col items-center">
+                <div className="rounded-xl w-full h-48 bg-gray-200 text-white flex justify-center items-center"><PhotoIcon/></div>
+                {/* <Image src="" width={192} height={192} className="rounded-xl object-cover h-[192px]" alt="ماموریت پارک درخشان" /> */}
+                <Typography variant="h4" className="text-xl">
+                  ماموریت پارک درخشان
+                </Typography>
+              </div>
+              <Divider className="my-3" />
+              <div className="p-3 pt-0 flex flex-col mb-1">
+                <Typography variant="subtitle2" className="text-gray-500 text-base max-sm:text-sm">
+                  <span className="text-[#000000de]">زمان شروع: </span> جمعه ۵ مرداد ساعت ۱۶:۰۰
+                </Typography>
+                <Typography variant="subtitle2" className="text-gray-500 text-base max-sm:text-sm">
+                  <span className="text-[#000000de]">زمان پایان: </span> شنبه ۶ مرداد ساعت ۱۸:۰۰
+                </Typography>
+                <Typography variant="subtitle2" className="text-gray-500 text-base max-sm:text-sm">
+                  <span className="text-[#000000de]">مکان: </span> پارک درخشان
+                </Typography>
+              </div>
+            </Button>
+          </Link>
+        </div>
       </div>
     </Container>
   )
