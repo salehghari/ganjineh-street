@@ -84,11 +84,7 @@ export default function Questions() {
       
     } catch (error: any) {
       if (error.response.status == 400) {
-        // if levelId == currentLevel
         setErrorMessage("جواب اشتباهه!")
-
-        // if levelId < currentLevel
-        // already answered
       }
       else if (error.response.status == 500) {
         setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
