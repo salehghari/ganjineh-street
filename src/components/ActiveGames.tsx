@@ -46,7 +46,7 @@ export default function ActiveGames() {
 
   return (
     <Container id="active-games" className="flex flex-col items-center gap-6 py-8 max-sm:px-0 relative">
-      <Image className="absolute top-8 -left-4 rotate-90 -z-10" src="/doted.svg" alt="doted" width="267" height="117" />
+     <Image className="absolute top-8 -left-4 rotate-90 -z-10" src="/doted.svg" alt="doted" width="267" height="117" />
       <Image className="absolute bottom-0 -right-4 -z-10" src="/doted.svg" alt="doted2" width="178" height="78" />
       <div className="flex items-center max-sm:flex-col justify-center gap-4 w-full">
         {activeGames.map((game) => (
@@ -75,9 +75,9 @@ export default function ActiveGames() {
               </Button>
             </Link>
           </div>
-        ))}
+        ))} 
       </div>
-      <div className="flex items-center justify-center gap-2 w-full font-bold text-6xl max-sm:text-4xl">
+      { /* <div className="flex items-center justify-center gap-2 w-full font-bold text-6xl max-sm:text-4xl">
         بزودی
         <div className="flex gap-1 mt-3">
           <svg
@@ -128,7 +128,7 @@ export default function ActiveGames() {
               fill=""
             />
           </svg>
-        </div>
+        </div> */}
       </div>
     </Container>
   )
