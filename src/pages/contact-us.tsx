@@ -30,11 +30,11 @@ export default function contactUs() {
           </Typography>
         </div>
         <div className="flex flex-col gap-1">
-          <Link target="_blank" className="hover:underline flex gap-1 font-semibold" href="https://www.instagram.com/ganjinehstreet">
+          <Link target="_blank" className="main-text-color main-text-hover flex gap-1 font-semibold" href="https://www.instagram.com/ganjinehstreet">
             <InstagramIcon />
             ganjinehstreet
           </Link>
-          <Link className="hover:underline flex gap-1 font-semibold" href="mailto:ganjinehstreet@gmail.com">
+          <Link className="main-text-color main-text-hover flex gap-1 font-semibold" href="mailto:ganjinehstreet@gmail.com">
             <EmailOutlinedIcon />
             ganjinehstreet@gmail.com
           </Link>

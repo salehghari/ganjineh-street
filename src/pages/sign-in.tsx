@@ -172,7 +172,7 @@ export default function SignIn() {
           }
           <Grid container>
             <Grid item>
-              <Link className="underline main-text-hover hover:no-underline" href="/sign-up">
+              <Link className="main-text-color main-text-hover" href="/sign-up">
                 حساب کاربری نداری؟ ثبت نام
               </Link>
             </Grid>

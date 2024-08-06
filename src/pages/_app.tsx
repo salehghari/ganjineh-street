@@ -103,7 +103,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
           <div className="flex justify-center text-center w-full mt-auto">
             <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
-              1403 - کلیه حقوق این وبسایت به <Link className="underline" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
+              1403 - کلیه حقوق این وبسایت به <Link className="main-text-color" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
             </Typography>
           </div>
         </div>

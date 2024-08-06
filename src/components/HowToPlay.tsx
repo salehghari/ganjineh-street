@@ -54,7 +54,7 @@ export default function HowToPlay() {
             className="text-base text-gray-500"
           >
             به صفحه‌ی&nbsp;
-            <span className="hover:underline">
+            <span>
               <Link target="_blank" className="ig-link" href="https://www.instagram.com/ganjinehstreet">
               اینستاگرام ما
               </Link>
