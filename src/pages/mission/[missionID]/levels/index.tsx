@@ -93,7 +93,7 @@ export default function Levels() {
             <Typography className="text-white text-xl" variant='h3'>
               ماموریت پارک درخشان
             </Typography>
-            <p onClick={() => router.push(`/mission/${id}`)} className="text-[#afafaf] text-sm mt-2 cursor-pointer">
+            <p onClick={() => router.push(`/mission/${id}`)} className="text-gray-100 text-sm mt-2 cursor-pointer">
               بازگشت به ماموریت
               <ArrowBackIcon />
             </p>
@@ -110,13 +110,13 @@ export default function Levels() {
                 linkBtnClassName += ' bg-[#ffc700] shadow-[0_8px_0_0_rgb(230,159,0)]';
               } else if (1 === index + 1) {
                 // current level
-                linkBtnParentClassName += ' border-[15px] border-[#263238d3] cursor-pointer';
-                linkBtnClassName += ' main-bg-color main-bg-hover shadow-[0_8px_0_0_rgb(0,0,0)] active:shadow-[0_6px_0_0_rgb(0,0,0)] active:translate-y-[2px]';
+                linkBtnParentClassName += ' border-[15px] border-[#29754b] cursor-pointer';
+                linkBtnClassName += ' main-bg-color main-bg-hover shadow-[0_8px_0_0_rgb(48,143,90)] active:shadow-[0_6px_0_0_rgb(48,143,90)] active:translate-y-[2px]';
                 canStartTheLevel = true;
               } else {
                 // locked
                 linkBtnParentClassName += ' opacity-50';
-                linkBtnClassName += ' main-bg-color shadow-[0_8px_0_0_rgb(0,0,0)]';
+                linkBtnClassName += ' main-bg-color shadow-[0_8px_0_0_rgb(48,143,90)]';
                 isLocked = true;
               }
               return (
