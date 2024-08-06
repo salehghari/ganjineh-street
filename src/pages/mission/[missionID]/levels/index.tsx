@@ -17,6 +17,11 @@ export default function Levels() {
 
   const [displayedImages, setDisplayedImages] = useState<string[]>([]);
 
+  const [levelCount, setLevelCount] = useState('');
+  const [currentLevel, setCurrentLevel] = useState('');
+  const [isGameFinished, setIsGameFinished] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const images = [
     '/treasure-chest.png',
     '/treasure-chest2.png',
@@ -53,9 +58,6 @@ export default function Levels() {
   }, [])
   
 
-  const [levelCount, setLevelCount] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-
 
   const fetchLevelCount = async () => {
     try {
@@ -81,13 +83,34 @@ export default function Levels() {
     }
   }
 
+  const fetchGameData = async () => {
+    try {
+      if (id) {
+        const { data } = await axios.get(`/api/games/${id}`, options);
+
+        console.log(data);
+        setCurrentLevel(data.currentLevel)
+        if (data.status == "finished") {
+          setIsGameFinished("شما این ماموریت رو با موفقیت پشت سر گذاشتید!")
+        } else {
+          setIsGameFinished("")
+        }
+      }
+
+    } catch (error: any) {
+
+    }
+  }
+
   useEffect(() => {
     fetchLevelCount()
+    fetchGameData()
   }, [id])
+
 
   return (
     <>
-      {!errorMessage && 
+      {!errorMessage && !isGameFinished && 
         <Container className="flex flex-col items-center my-3" component="main">
           <div className="flex flex-col justify-between px-8 py-4 main-bg-color rounded-xl">
             <Typography className="text-white text-xl" variant='h3'>
@@ -105,10 +128,10 @@ export default function Levels() {
               let canStartTheLevel = false;
               let isLocked = false;
               
-              if (1 > index + 1) {
+              if (parseInt(currentLevel) > index + 1) {
                 // completed
                 linkBtnClassName += ' bg-[#ffc700] shadow-[0_8px_0_0_rgb(230,159,0)]';
-              } else if (1 === index + 1) {
+              } else if (parseInt(currentLevel) === index + 1) {
                 // current level
                 linkBtnParentClassName += ' border-[15px] border-[#29754b] cursor-pointer';
                 linkBtnClassName += ' main-bg-color main-bg-hover shadow-[0_8px_0_0_rgb(48,143,90)] active:shadow-[0_6px_0_0_rgb(48,143,90)] active:translate-y-[2px]';
@@ -155,6 +178,9 @@ export default function Levels() {
       }
       {errorMessage &&
         <ErrorMessage message={errorMessage} />
+      }
+      {isGameFinished &&
+        <ErrorMessage message={isGameFinished} />
       }
     </>
   )

@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ErrorMessage from '@/components/ErrorMessage';
 import Image from 'next/image';
+import WinnerPage from '@/components/WinnerPage';
 
 
 
@@ -22,6 +23,7 @@ export default function Questions() {
   const router = useRouter()
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [isWinner, setIsWinner] = useState(false);
 
   const params = useParams<{ missionID: string, levelID: string }>();
   const missionId = params?.missionID;
@@ -80,7 +82,7 @@ export default function Questions() {
       console.log(response);
       setErrorMessage("")
 
-      // route to winner page
+      setIsWinner(true)
       
     } catch (error: any) {
       if (error.response.status == 400) {
@@ -97,57 +99,60 @@ export default function Questions() {
 
   return (
     <>
-      <CacheProvider value={cacheRtl}>
-        <Container className="!flex max-sm:flex-col justify-center items-center relative gap-6 py-6 p-2" component="main">
-          <div className="flex flex-col w-full lg:w-1/2 items-center">
-            <ArrowBackIcon onClick={() => router.back()} className="absolute top-3 right-6 !text-3xl cursor-pointer hover:bg-slate-200 rounded-md"/>
-            <div className="flex flex-col items-center gap-2">
-              <Typography
-                variant="h2"
-                className="font-bold !text-4xl"
-              >
-                سوال {singleLevel.number ? new Number(singleLevel.number).toLocaleString('fa-ir') : "--"}
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                className="!text-lg max-sm:text-base text-gray-800 text-justify"
-              >
-                {singleLevel.question ? singleLevel.question : "--"}
-              </Typography>
-            </div>
-            <Box component="form" className="w-full" onSubmit={handleUserAnswer} noValidate sx={{ mt: 3 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="answer"
-                    label="پاسخ را وارد کنید"
-                    name="answer"
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
-                  />
+      {!isWinner &&
+        <CacheProvider value={cacheRtl}>
+          <Container className="!flex max-sm:flex-col justify-center items-center relative gap-6 py-6 p-2" component="main">
+            <div className="flex flex-col w-full lg:w-1/2 items-center">
+              <ArrowBackIcon onClick={() => router.back()} className="absolute top-3 right-6 !text-3xl cursor-pointer hover:bg-slate-200 rounded-md"/>
+              <div className="flex flex-col items-center gap-2">
+                <Typography
+                  variant="h2"
+                  className="font-bold !text-4xl"
+                >
+                  سوال {singleLevel.number ? new Number(singleLevel.number).toLocaleString('fa-ir') : "--"}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  className="!text-lg max-sm:text-base text-gray-800 text-justify"
+                >
+                  {singleLevel.question ? singleLevel.question : "--"}
+                </Typography>
+              </div>
+              <Box component="form" className="w-full" onSubmit={handleUserAnswer} noValidate sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="answer"
+                      label="پاسخ را وارد کنید"
+                      name="answer"
+                      value={answer}
+                      onChange={(e) => setAnswer(e.target.value)}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                className="main-bg-color main-bg-hover"
-                variant="contained"
-                sx={{ mt: 3, mb: 2, fontSize: 16 }}
-              >
-                ثبت
-              </Button>
-            </Box>
-            {errorMessage && 
-        <ErrorMessage message={errorMessage} />
+                <Button
+                  type="submit"
+                  fullWidth
+                  className="main-bg-color main-bg-hover"
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2, fontSize: 16 }}
+                >
+                  ثبت
+                </Button>
+              </Box>
+              {errorMessage && 
+                <ErrorMessage message={errorMessage} />
+              }
+            </div>
+            <div className="flex justify-center items-center sm:max-w-[50%] max-sm:w-full">
+              {singleLevel.image && <Image src={singleLevel.image} width={350} height={350} className="rounded-xl object-cover h-[350px]" alt={singleLevel.question} />}
+            </div>
+          </Container>
+        </CacheProvider>
       }
-          </div>
-          <div className="flex justify-center items-center sm:max-w-[50%] max-sm:w-full">
-            {singleLevel.image && <Image src={singleLevel.image} width={350} height={350} className="rounded-xl object-cover h-[350px]" alt={singleLevel.question} />}
-          </div>
-        </Container>
-      </CacheProvider>
+      {isWinner && <WinnerPage />}
     </>
   )
 }
