@@ -40,7 +40,7 @@ export default function SignUp() {
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost/api/sign-up?pre=true', {
+      const response = await axios.post('/api/sign-up?pre=true', {
         firstName,
         lastName,
         phoneNumber,
@@ -68,7 +68,7 @@ export default function SignUp() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost/api/sign-up', {
+      const response = await axios.post('/api/sign-up', {
         firstName,
         lastName,
         phoneNumber,

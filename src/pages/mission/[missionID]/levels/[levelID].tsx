@@ -43,7 +43,7 @@ export default function Questions() {
   const fetchSingleLevel = async () => {
     try {
       if (missionId && levelId) {
-        const { data } = await axios.get(`http://localhost/api/missions/${missionId}/${levelId}`, options);
+        const { data } = await axios.get(`/api/missions/${missionId}/${levelId}`, options);
 
         console.log(data);
         dispatch(
@@ -73,7 +73,7 @@ export default function Questions() {
   const handleUserAnswer = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`http://localhost/api/missions/${missionId}/${levelId}`, {
+      const response = await axios.post(`/api/missions/${missionId}/${levelId}`, {
         answer,
       }, options);
 

@@ -35,7 +35,7 @@ export default function SignIn() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost/api/sign-in?pre=true', {
+      const response = await axios.post('/api/sign-in?pre=true', {
         phoneNumber
       }, options);
 
@@ -61,7 +61,7 @@ export default function SignIn() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost/api/sign-in', {
+      const response = await axios.post('/api/sign-in', {
         phoneNumber,
         verificationCode
       });

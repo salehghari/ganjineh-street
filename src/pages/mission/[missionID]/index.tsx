@@ -33,7 +33,7 @@ export default function GameDetail() {
   const fetchSingleGame = async () => {
     try {
       if (id) {
-        const { data } = await axios.get(`http://localhost/api/missions/${id}`, options);
+        const { data } = await axios.get(`/api/missions/${id}`, options);
 
         console.log(data);
         dispatch(setSingleGame(data));
@@ -61,7 +61,7 @@ export default function GameDetail() {
   const startSingleGame = async () => {
     try {
       if (id && !errorMessage) {
-        const response = await axios.get(`http://localhost/api/missions/start/${id}`, options);
+        const response = await axios.get(`/api/missions/start/${id}`, options);
   
         console.log(response);
       }

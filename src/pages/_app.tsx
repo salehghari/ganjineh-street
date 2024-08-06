@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
     const handleJwt = async () => {
       try {
-        const response = await axios.get('http://localhost/api/jwt', options);
+        const response = await axios.get('/api/jwt', options);
   
         dispatch(
           setFirstName(response.data.firstName)

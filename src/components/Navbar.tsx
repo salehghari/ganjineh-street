@@ -51,7 +51,7 @@ export default function Navbar(props: Props) {
   const isSignedIn = useSelector((state: RootState) => state.ganjinehStreet.isSignedIn);
 
   const handleSignOut = async () => {
-    const response = await axios.get('http://localhost/api/sign-out', options);
+    const response = await axios.get('/api/sign-out', options);
 
     dispatch(
       setFirstName("")
@@ -158,7 +158,7 @@ export default function Navbar(props: Props) {
                 </Link>
               }
               {isSignedIn && 
-                <Button onClick={handleSignOut} className="max-[599px]:py-1 py-2 px-3 main-bg-color main-bg-hover rounded-full text-red-300" variant="contained" endIcon={<LogoutRoundedIcon className="-ml-2 mr-2" />}>خروج از حساب</Button>
+                <Button onClick={handleSignOut} className="max-[599px]:py-1 py-2 px-3 main-bg-color main-bg-hover rounded-full" variant="contained" endIcon={<LogoutRoundedIcon className="-ml-2 mr-2" />}>خروج از حساب</Button>
               }
             </div>
           </Toolbar>

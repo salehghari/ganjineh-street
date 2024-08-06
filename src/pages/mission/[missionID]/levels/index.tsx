@@ -60,7 +60,7 @@ export default function Levels() {
   const fetchLevelCount = async () => {
     try {
       if (id) {
-        const { data } = await axios.get(`http://localhost/api/missions/${id}`, options);
+        const { data } = await axios.get(`/api/missions/${id}`, options);
 
         console.log(data);
         setLevelCount(data.levelCount);
