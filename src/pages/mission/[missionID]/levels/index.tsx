@@ -40,17 +40,11 @@ export default function Levels() {
   };
 
   const addRandomImage = () => {
-    const remainingImages = images.filter(
-      img => !displayedImages.includes(img)
-    );
-
-    if (remainingImages.length > 0) {
-      const randomIndex = getRandomIndex(remainingImages.length);
-      setDisplayedImages(prevImages => [
-        ...prevImages,
-        remainingImages[randomIndex],
-      ]);
-    }
+    const randomIndex = getRandomIndex(images.length);
+    setDisplayedImages(prevImages => [
+      ...prevImages,
+      images[randomIndex],
+    ]);
   };
 
   useEffect(() => {
@@ -145,9 +139,9 @@ export default function Levels() {
               return (
                 <>
                   {((index + 1) % 2 == 0) && // even
-                    <div className="relative -left-10">
+                    <div key={index} className="relative -left-10">
                       <Image className="absolute w-20 h-20 left-[140px] top-0 -z-10 rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
-                      <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)} key={index}>
+                      <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)}>
                         <div
                           className={linkBtnClassName}
                         >
@@ -158,9 +152,9 @@ export default function Levels() {
                     </div>
                   }
                   {((index + 1) % 2 != 0) && // odd
-                    <div className="relative left-10">
+                    <div key={index} className="relative left-10">
                       <Image className="absolute w-20 h-20 -left-[140px] top-0 -z-10 -rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
-                      <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)} key={index}>
+                      <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)}>
                         <div
                           className={linkBtnClassName}
                         >
