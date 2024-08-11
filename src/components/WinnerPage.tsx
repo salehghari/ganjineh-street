@@ -34,7 +34,7 @@ export default function WinnerPage() {
 
   return (
     <>
-      <Container className="!flex relative max-sm:flex-col justify-center items-center relative gap-6 py-6 p-2" component="main">
+      <Container className="!flex relative max-sm:flex-col justify-center items-center gap-6 py-6 p-2" component="main">
         <Confetti style={{position: "fixed"}} width={width} height={height} recycle={false} />
         <ArrowBackIcon onClick={() => router.back()} className="absolute top-3 right-6 !text-3xl cursor-pointer hover:bg-slate-200 rounded-md"/>
         <div className="relative flex flex-col items-center gap-2 p-8 shadow-[0_2px_16px_rgba(4,10,31,.04)] rounded-3xl">

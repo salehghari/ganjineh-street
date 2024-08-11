@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { setLevelsLoading, setSingleGame } from '@/features/ganjinehSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
+import SuccessMessage from '@/components/SuccessMessage';
 
 
 
@@ -237,7 +238,7 @@ export default function Levels() {
         <ErrorMessage message={errorMessage} />
       }
       {isGameFinished &&
-        <ErrorMessage message={isGameFinished} />
+        <SuccessMessage message={isGameFinished} />
       }
     </>
   )

@@ -64,7 +64,7 @@ export default function GameDetail() {
 
   return (
     <>
-      {singleGameLoading && <div className="loader mt-auto mr-[calc((100vw/2)-18px)]"></div>}
+      {singleGameLoading && !errorMessage && <div className="loader mt-auto mr-[calc((100vw/2)-18px)]"></div>}
       {!errorMessage && !singleGameLoading && 
         <Container className="flex items-stretch max-sm:flex-col-reverse sm:gap-10 mt-6 mb-12 sm:max-h-[500px] w-full">
           <div className="flex flex-col justify-center flex-1 gap-6">
