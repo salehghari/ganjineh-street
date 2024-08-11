@@ -3,9 +3,8 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
-import PhotoIcon from '@mui/icons-material/Photo';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSingleLevel } from '@/features/ganjinehSlice';
+import { setSingleLevelLoading, setSingleLevel } from '@/features/ganjinehSlice';
 import axios from 'axios';
 import { options } from '@/config/api';
 import { useParams } from 'next/navigation'
@@ -16,6 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ErrorMessage from '@/components/ErrorMessage';
 import Image from 'next/image';
 import WinnerPage from '@/components/WinnerPage';
+import SuccessMessage from '@/components/SuccessMessage';
 
 
 
@@ -23,7 +23,12 @@ export default function Questions() {
   const router = useRouter()
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [answerErrorMessage, setAnswerErrorMessage] = useState('');
   const [isWinner, setIsWinner] = useState(false);
+  const [currentLevel, setCurrentLevel] = useState('');
+  const [isLevelDone, setIsLevelDone] = useState('');
+
+
 
   const params = useParams<{ missionID: string, levelID: string }>();
   const missionId = params?.missionID;
@@ -32,6 +37,8 @@ export default function Questions() {
   const [answer, setAnswer] = useState('');
 
   const singleLevel = useSelector((state: RootState) => state.ganjinehStreet.singleLevel);
+  const singleLevelLoading = useSelector((state: RootState) => state.ganjinehStreet.loading.singleLevel);
+
 
 
 
@@ -42,15 +49,30 @@ export default function Questions() {
 
   const dispatch = useDispatch();
 
+  const fetchGameData = async () => {
+    if (missionId) {
+      try {
+        const { data } = await axios.get(`/api/games/${missionId}`, options);
+
+        setCurrentLevel(data.currentLevel)
+      } catch (error: any) {
+
+      }
+    }
+  }
+
   const fetchSingleLevel = async () => {
     try {
-      if (missionId && levelId) {
-        const { data } = await axios.get(`/api/missions/${missionId}/${levelId}`, options);
+      if (missionId && levelId) { 
+        if(levelId < currentLevel) {
+          setIsLevelDone("شما این مرحله رو با موفقیت پشت سر گذاشتید!")
+        } else {
+          const { data } = await axios.get(`/api/missions/${missionId}/${levelId}`, options);
 
-        console.log(data);
-        dispatch(
-          setSingleLevel(data)
-        );
+          dispatch(
+            setSingleLevel(data)
+          );
+        }
       }
 
     } catch (error: any) {
@@ -70,7 +92,9 @@ export default function Questions() {
 
   useEffect(() => {
     fetchSingleLevel()
-  }, [levelId])
+    fetchGameData()
+    dispatch(setSingleLevelLoading(false));
+  }, [missionId, levelId, currentLevel])
 
   const handleUserAnswer = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -79,19 +103,18 @@ export default function Questions() {
         answer,
       }, options);
 
-      console.log(response);
-      setErrorMessage("")
+      setAnswerErrorMessage("")
 
       setIsWinner(true)
       
     } catch (error: any) {
       if (error.response.status == 400) {
-        setErrorMessage("جواب اشتباهه!")
+        setAnswerErrorMessage("جواب اشتباهه!")
       }
       else if (error.response.status == 500) {
-        setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
+        setAnswerErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
       } else {
-        setErrorMessage("لطفا بعدا امتحان کنید.")
+        setAnswerErrorMessage("لطفا بعدا امتحان کنید.")
       }
     }
   };
@@ -99,7 +122,8 @@ export default function Questions() {
 
   return (
     <>
-      {!isWinner &&
+      {singleLevelLoading && <div className="loader mt-auto mr-[calc((100vw/2)-18px)]"></div>}
+      {!isWinner && !isLevelDone && !errorMessage && !singleLevelLoading &&
         <CacheProvider value={cacheRtl}>
           <Container className="!flex max-sm:flex-col justify-center items-center relative gap-6 py-6 p-2" component="main">
             <div className="flex flex-col w-full lg:w-1/2 items-center">
@@ -142,8 +166,8 @@ export default function Questions() {
                   ثبت
                 </Button>
               </Box>
-              {errorMessage && 
-                <ErrorMessage message={errorMessage} />
+              {answerErrorMessage && 
+                <ErrorMessage message={answerErrorMessage} />
               }
             </div>
             <div className="flex justify-center items-center sm:max-w-[50%] max-sm:w-full">
@@ -152,7 +176,11 @@ export default function Questions() {
           </Container>
         </CacheProvider>
       }
+      {isLevelDone && <SuccessMessage message={isLevelDone} />}
       {isWinner && <WinnerPage />}
+      {errorMessage &&
+        <ErrorMessage message={errorMessage} />
+      }
     </>
   )
 }

@@ -12,6 +12,7 @@ interface ganjinehState {
   singleLevel: {
     [key: string]: any
   },
+  loading: { activeGames: boolean, singleGame: boolean, levels: boolean, singleLevel: boolean },
 }
 
 const initialState: ganjinehState = {
@@ -22,6 +23,7 @@ const initialState: ganjinehState = {
   activeGames: [],
   singleGame: {},
   singleLevel: {},
+  loading: { activeGames: true, singleGame: true, levels: true, singleLevel: true },
 };
 
 const ganjinehSlice = createSlice({
@@ -49,6 +51,18 @@ const ganjinehSlice = createSlice({
     setSingleLevel: (state, action: PayloadAction<{}>) => {
       state.singleLevel = action.payload;
     },
+    setActiveGamesLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading.activeGames = action.payload;
+    },
+    setSingleGameLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading.singleGame = action.payload;
+    },
+    setLevelsLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading.levels = action.payload;
+    },
+    setSingleLevelLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading.singleLevel = action.payload;
+    },
   }
 })
 
@@ -60,6 +74,10 @@ export const {
   setActiveGames,
   setSingleGame,
   setSingleLevel,
+  setActiveGamesLoading,
+  setSingleGameLoading,
+  setLevelsLoading,
+  setSingleLevelLoading
 } = ganjinehSlice.actions;
 
 export default ganjinehSlice.reducer;

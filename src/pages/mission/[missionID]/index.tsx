@@ -10,7 +10,7 @@ import axios from "axios";
 import { options } from '@/config/api';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSingleGame } from "@/features/ganjinehSlice";
+import { setSingleGame, setSingleGameLoading } from "@/features/ganjinehSlice";
 import { RootState } from "@/app/store";
 import { jalaliDate } from "@/components/ActiveGames";
 import Image from "next/image";
@@ -26,6 +26,7 @@ export default function GameDetail() {
 
 
   const singleGame = useSelector((state: RootState) => state.ganjinehStreet.singleGame);
+  const singleGameLoading = useSelector((state: RootState) => state.ganjinehStreet.loading.singleGame);
 
 
   const dispatch = useDispatch();
@@ -35,8 +36,9 @@ export default function GameDetail() {
       if (id) {
         const { data } = await axios.get(`/api/missions/${id}`, options);
 
-        console.log(data);
         dispatch(setSingleGame(data));
+
+        dispatch(setSingleGameLoading(false));
       }
 
     } catch (error: any) {
@@ -58,29 +60,12 @@ export default function GameDetail() {
     fetchSingleGame()
   }, [id])
 
-  const startSingleGame = async () => {
-    try {
-      if (id && !errorMessage) {
-        const response = await axios.get(`/api/missions/start/${id}`, options);
-  
-        console.log(response);
-      }
-    } catch (error: any) {
-      if (error.response.status == 400) {
-        return
-      }
-      else if (error.response.status == 500) {
-        setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
-      } else {
-        setErrorMessage("لطفا بعدا امتحان کنید.")
-      }
-    }
-  }
 
 
   return (
     <>
-      {!errorMessage && 
+      {singleGameLoading && <div className="loader mt-auto mr-[calc((100vw/2)-18px)]"></div>}
+      {!errorMessage && !singleGameLoading && 
         <Container className="flex items-stretch max-sm:flex-col-reverse sm:gap-10 mt-6 mb-12 sm:max-h-[500px] w-full">
           <div className="flex flex-col justify-center flex-1 gap-6">
             <Typography
@@ -121,7 +106,7 @@ export default function GameDetail() {
                 <EmojiEventsOutlinedIcon className="py-[2px] !text-3xl" />
                 <span className="text-[#000000de]">جایزه: </span>{singleGame.prize ? new Number(singleGame.prize).toLocaleString('fa-ir') : "--"} تومان
               </Typography>
-              <Link onClick={startSingleGame} className="my-3" href={`/mission/${id}/levels`}>
+              <Link className="my-3" href={`/mission/${id}/levels`}>
                 <Button className="main-bg-color main-bg-hover w-full" variant="contained">
                   مشاهده مراحل
                 </Button>

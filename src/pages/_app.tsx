@@ -20,7 +20,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = router;
 
   const params = useParams<{ missionID: string, levelID: string }>();
-  const missionId = params?.missionID;
   const levelId = params?.levelID;
 
   
@@ -53,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
       handleJwt()
-    }, [dispatch]);
+    }, []);
 
     return <Component {...pageProps} />;
   };

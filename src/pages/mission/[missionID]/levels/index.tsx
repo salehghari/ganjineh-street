@@ -5,9 +5,13 @@ import { useParams } from 'next/navigation'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
 import { options } from '@/config/api';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import ErrorMessage from '@/components/ErrorMessage';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { setLevelsLoading, setSingleGame } from '@/features/ganjinehSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+
 
 
 export default function Levels() {
@@ -15,12 +19,18 @@ export default function Levels() {
   const params = useParams<{ missionID: string }>();
   const id = params?.missionID;
 
+  const dispatch = useDispatch();
+
   const [displayedImages, setDisplayedImages] = useState<string[]>([]);
 
   const [levelCount, setLevelCount] = useState('');
   const [currentLevel, setCurrentLevel] = useState('');
   const [isGameFinished, setIsGameFinished] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const singleGame = useSelector((state: RootState) => state.ganjinehStreet.singleGame);
+  const levelsLoading = useSelector((state: RootState) => state.ganjinehStreet.loading.levels);
+
 
   const images = [
     '/treasure-chest.png',
@@ -47,18 +57,35 @@ export default function Levels() {
     ]);
   };
 
+  const startSingleGame = async () => {
+    try {
+      if (id) {
+        const response = await axios.get(`/api/missions/start/${id}`, options);
+  
+        console.log(response);
+      }
+    } catch (error: any) {
+      if (error.response.status == 400) {
+        return
+      }
+      else if (error.response.status == 500) {
+        setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
+      } else {
+        setErrorMessage("لطفا بعدا امتحان کنید.")
+      }
+    }
+  }
+
   useEffect(() => {
+    startSingleGame()
     addRandomImage();
   }, [])
-  
-
 
   const fetchLevelCount = async () => {
     try {
       if (id) {
         const { data } = await axios.get(`/api/missions/${id}`, options);
 
-        console.log(data);
         setLevelCount(data.levelCount);
       }
 
@@ -82,7 +109,6 @@ export default function Levels() {
       if (id) {
         const { data } = await axios.get(`/api/games/${id}`, options);
 
-        console.log(data);
         setCurrentLevel(data.currentLevel)
         if (data.status == "finished") {
           setIsGameFinished("شما این ماموریت رو با موفقیت پشت سر گذاشتید!")
@@ -92,23 +118,60 @@ export default function Levels() {
       }
 
     } catch (error: any) {
-
+      if (error.response.status == 400) {
+        setErrorMessage("چنین ماموریتی وجود ندارد.")
+      }
+      else if (error.response.status == 401) {
+        setErrorMessage("برای مشاهده مراحل ثبت نام یا ورود کنید.")
+      }
+      else if (error.response.status == 500) {
+        setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
+      } else {
+        setErrorMessage("لطفا بعدا امتحان کنید.")
+      }
     }
   }
+
+  const fetchSingleGame = async () => {
+    try {
+      if (id) {
+        const { data } = await axios.get(`/api/missions/${id}`, options);
+
+        dispatch(setSingleGame(data));
+      }
+
+    } catch (error: any) {
+      if (error.response.status == 400) {
+        setErrorMessage("چنین ماموریتی وجود ندارد.")
+      }
+      else if (error.response.status == 401) {
+        setErrorMessage("برای مشاهده مراحل ثبت نام یا ورود کنید.")
+      }
+      else if (error.response.status == 500) {
+        setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
+      } else {
+        setErrorMessage("لطفا بعدا امتحان کنید.")
+      }
+    }
+  }
+
 
   useEffect(() => {
     fetchLevelCount()
     fetchGameData()
+    fetchSingleGame()
+    dispatch(setLevelsLoading(false));
   }, [id])
 
 
   return (
     <>
-      {!errorMessage && !isGameFinished && 
+      {levelsLoading && <div className="loader mt-auto mr-[calc((100vw/2)-18px)]"></div>}
+      {!errorMessage && !levelsLoading && !isGameFinished && 
         <Container className="flex flex-col items-center my-3" component="main">
           <div className="flex flex-col justify-between px-8 py-4 main-bg-color rounded-xl">
             <Typography className="text-white text-xl" variant='h3'>
-              ماموریت پارک درخشان
+              {singleGame.name ? singleGame.name : "--"}
             </Typography>
             <p onClick={() => router.push(`/mission/${id}`)} className="text-gray-100 text-sm mt-2 cursor-pointer">
               بازگشت به ماموریت
@@ -137,10 +200,10 @@ export default function Levels() {
                 isLocked = true;
               }
               return (
-                <>
+                <Fragment key={index}>
                   {((index + 1) % 2 == 0) && // even
-                    <div key={index} className="relative -left-10">
-                      <Image className="absolute w-20 h-20 left-[140px] top-0 -z-10 rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
+                    <div className="relative -left-10">
+                      <Image priority={true} className="absolute w-20 h-20 left-[140px] top-0 -z-10 rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
                       <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)}>
                         <div
                           className={linkBtnClassName}
@@ -152,8 +215,8 @@ export default function Levels() {
                     </div>
                   }
                   {((index + 1) % 2 != 0) && // odd
-                    <div key={index} className="relative left-10">
-                      <Image className="absolute w-20 h-20 -left-[140px] top-0 -z-10 -rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
+                    <div className="relative left-10">
+                      <Image priority={true} className="absolute w-20 h-20 -left-[140px] top-0 -z-10 -rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
                       <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)}>
                         <div
                           className={linkBtnClassName}
@@ -164,7 +227,7 @@ export default function Levels() {
                       </div>
                     </div>
                   }
-                </>
+                </Fragment>
               )
             })}
           </div>
