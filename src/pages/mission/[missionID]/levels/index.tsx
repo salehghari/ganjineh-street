@@ -22,7 +22,6 @@ export default function Levels() {
 
   const dispatch = useDispatch();
 
-  const [displayedImages, setDisplayedImages] = useState<string[]>([]);
 
   const [levelCount, setLevelCount] = useState('');
   const [currentLevel, setCurrentLevel] = useState('');
@@ -34,36 +33,23 @@ export default function Levels() {
 
 
   const images = [
-    '/treasure-chest.png',
-    '/treasure-chest2.png',
-    '/treasure-chest3.png',
-    '/money.png',
-    '/money-bag.png',
     '/map.png',
-    '/map2.png',
-    '/map3.png',
     '/key.png',
+    '/money.png',
+    '/treasure-chest.png',
+    '/money-bag.png',
+    '/treasure-chest2.png',
+    '/map3.png',
+    '/treasure-chest3.png',
+    '/map2.png',
     '/island.png',
   ];
 
-  const getRandomIndex = (length: number): number => {
-    return Math.floor(Math.random() * length);
-  };
-
-  const addRandomImage = () => {
-    const randomIndex = getRandomIndex(images.length);
-    setDisplayedImages(prevImages => [
-      ...prevImages,
-      images[randomIndex],
-    ]);
-  };
 
   const startSingleGame = async () => {
     try {
       if (id) {
         const response = await axios.get(`/api/missions/start/${id}`, options);
-  
-        console.log(response);
       }
     } catch (error: any) {
       if (error.response.status == 400) {
@@ -79,7 +65,6 @@ export default function Levels() {
 
   useEffect(() => {
     startSingleGame()
-    addRandomImage();
   }, [])
 
   const fetchLevelCount = async () => {
@@ -204,7 +189,7 @@ export default function Levels() {
                 <Fragment key={index}>
                   {((index + 1) % 2 == 0) && // even
                     <div className="relative -left-10">
-                      <Image priority={true} className="absolute w-20 h-20 left-[140px] top-0 -z-10 rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
+                      <Image className="absolute w-20 h-20 left-[140px] top-0 -z-10 rotate-6" src={images[index]} alt={`Random Image ${index + 1}`} width={124} height={124} />
                       <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)}>
                         <div
                           className={linkBtnClassName}
@@ -217,7 +202,7 @@ export default function Levels() {
                   }
                   {((index + 1) % 2 != 0) && // odd
                     <div className="relative left-10">
-                      <Image priority={true} className="absolute w-20 h-20 -left-[140px] top-0 -z-10 -rotate-6" src={displayedImages[index]} alt={displayedImages[index]} width={124} height={124} />
+                      <Image className="absolute w-20 h-20 -left-[140px] top-0 -z-10 -rotate-6" src={images[index]} alt={`Random Image ${index + 1}`} width={124} height={124} />
                       <div className={linkBtnParentClassName} onClick={() => canStartTheLevel && router.push(`/mission/${id}/levels/${index + 1}`)}>
                         <div
                           className={linkBtnClassName}

@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Provider } from 'react-redux'
 import { store } from '@/app/store'
 import axios from 'axios';
-import { useEffect } from 'react';
+import { StrictMode, useEffect } from 'react';
 import { options } from "@/config/api";
 import { useDispatch } from 'react-redux';
 import { setFirstName, setIsSignedIn, setLastName, setPhoneNumber } from '@/features/ganjinehSlice';
@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const handleJwt = async () => {
       try {
         const response = await axios.get('/api/jwt', options);
-  
+
         dispatch(
           setFirstName(response.data.firstName)
         )
@@ -52,6 +52,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
       handleJwt()
+      const githubRepoLink = 'https://github.com/salehghari/ganjineh-street';
+  
+      console.log('Here Is My GitHub Repository: ', githubRepoLink); 
     }, []);
 
     return <Component {...pageProps} />;
@@ -88,25 +91,27 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Head>
-          <title>{pageTitle}</title>
-          <link rel="icon" href="/favicon.png" type="image/png" />
-          <link rel="apple-touch-icon" href="/favicon.png" />
-        </Head>
-        <div className="App flex flex-col min-h-screen">
+      <StrictMode>
+        <ThemeProvider theme={theme}>
+          <Head>
+            <title>{pageTitle}</title>
+            <link rel="icon" href="/favicon.png" type="image/png" />
+            <link rel="apple-touch-icon" href="/favicon.png" />
+          </Head>
+          <div className="App flex flex-col min-h-screen">
 
-          <Navbar />
+            <Navbar />
 
-          <DispatchWrapper />
+            <DispatchWrapper />
 
-          <div className="flex justify-center text-center w-full mt-auto">
-            <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
-              1403 - کلیه حقوق این وبسایت به <Link className="main-text-color" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
-            </Typography>
+            <div className="flex justify-center text-center w-full mt-auto">
+              <Typography variant="subtitle1" className="text-gray-600 my-4 text-sm">
+                1403 - کلیه حقوق این وبسایت به <Link className="main-text-color" href="https://ganjinehstreet.ir/"><span className="font-semibold">گنجینه‌استریت</span></Link> تعلق دارد.
+              </Typography>
+            </div>
           </div>
-        </div>
-      </ThemeProvider>
+        </ThemeProvider>
+      </StrictMode>
     </Provider>
   );
 }

@@ -32,7 +32,6 @@ export default function ActiveGames() {
     try {
       const { data } = await axios.get('/api/missions', options);
 
-      console.log(data);
       dispatch(setActiveGames(data));
 
       dispatch(setActiveGamesLoading(false));
