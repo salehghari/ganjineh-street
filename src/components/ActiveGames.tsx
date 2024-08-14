@@ -3,9 +3,9 @@ import PhotoIcon from '@mui/icons-material/Photo';
 import Link from 'next/link';
 import axios from "axios";
 import { options } from '@/config/api';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveGames, setActiveGamesLoading } from "@/features/ganjinehSlice";
+import { setActiveGames, setActiveGamesLoading, setCanFetchGames } from "@/features/ganjinehSlice";
 import { RootState } from "@/app/store";
 import moment from 'moment-jalaali';
 import 'moment/locale/fa';
@@ -23,7 +23,9 @@ export const jalaliDate = (unixDate: number) => (
 
 export default function ActiveGames() {
 
+
   const activeGames = useSelector((state: RootState) => state.ganjinehStreet.activeGames);
+  const canFetchGames = useSelector((state: RootState) => state.ganjinehStreet.canFetchGames);
   const activeGamesLoading = useSelector((state: RootState) => state.ganjinehStreet.loading.activeGames);
 
   const dispatch = useDispatch();
@@ -42,16 +44,20 @@ export default function ActiveGames() {
   }
 
   useEffect(() => {
-    fetchActiveGames()
+    if(canFetchGames) {
+      fetchActiveGames()
+    }
+    dispatch(setCanFetchGames(false))
   }, [])
+
 
 
   return (
     <Container id="active-games" className="flex flex-col items-center gap-6 py-8 max-sm:px-0 relative">
-      {/* <Image className="absolute top-8 -left-4 rotate-90 -z-10" src="/doted.svg" alt="doted" width="267" height="117" />
+      <Image className="absolute top-8 -left-4 rotate-90 -z-10" src="/doted.svg" alt="doted" width="267" height="117" />
       <Image className="absolute bottom-0 -right-4 -z-10" src="/doted.svg" alt="doted2" width="178" height="78" />
-      {!activeGamesLoading && <div className="loader"></div>}
-      {activeGamesLoading && <div className="flex items-center max-sm:flex-col justify-center gap-4 w-full">
+      {activeGamesLoading && <div className="loader"></div>}
+      {!activeGamesLoading && <div className="flex items-center max-sm:flex-col justify-center gap-4 w-full">
         {activeGames.map((game) => (
           <div key={game.id} className="transition-shadow shadow-[0_2px_16px_rgba(4,10,31,.06)] hover:shadow-[0_2px_16px_rgba(4,10,31,.12)] w-[30%] max-sm:w-5/6 rounded-[20px] backdrop-blur-sm">
             <Link href={`/mission/${game.id}`}>
@@ -79,7 +85,7 @@ export default function ActiveGames() {
             </Link>
           </div>
         ))} 
-      </div>} */}
+      </div>}
       <div className="flex items-center justify-center gap-2 w-full font-bold text-6xl max-sm:text-4xl">
         بزودی
         <div className="flex gap-1 mt-3">

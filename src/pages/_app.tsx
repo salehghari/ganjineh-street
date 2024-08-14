@@ -2,13 +2,13 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Container, ThemeProvider, Typography, createTheme } from "@mui/material";
+import { ThemeProvider, Typography, createTheme } from "@mui/material";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { Provider } from 'react-redux'
 import { store } from '@/app/store'
 import axios from 'axios';
-import { StrictMode, useEffect } from 'react';
+import { StrictMode, useEffect, useState } from 'react';
 import { options } from "@/config/api";
 import { useDispatch } from 'react-redux';
 import { setFirstName, setIsSignedIn, setLastName, setPhoneNumber } from '@/features/ganjinehSlice';
@@ -22,6 +22,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const params = useParams<{ missionID: string, levelID: string }>();
   const levelId = params?.levelID;
 
+  const [loading, setLoading] = useState(true);
+  const [canRequestJwt, setCanRequestJwt] = useState(true);
   
   const DispatchWrapper = () => {
     const dispatch = useDispatch();
@@ -51,10 +53,15 @@ export default function App({ Component, pageProps }: AppProps) {
     };
 
     useEffect(() => {
-      handleJwt()
-      const githubRepoLink = 'https://github.com/salehghari/ganjineh-street';
+      if(canRequestJwt) {
+        handleJwt()
+
+        const githubRepoLink = 'https://github.com/salehghari/ganjineh-street';
+        console.log('Here Is My GitHub Repository: ', githubRepoLink); 
   
-      console.log('Here Is My GitHub Repository: ', githubRepoLink); 
+        setLoading(false)
+      }
+      setCanRequestJwt(false)
     }, []);
 
     return <Component {...pageProps} />;
@@ -98,7 +105,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <link rel="icon" href="/favicon.png" type="image/png" />
             <link rel="apple-touch-icon" href="/favicon.png" />
           </Head>
-          <div className="App flex flex-col min-h-screen">
+          <div className={`App flex flex-col min-h-screen ${loading ? "hidden" : ""}`}>
 
             <Navbar />
 

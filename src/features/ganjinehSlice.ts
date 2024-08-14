@@ -6,13 +6,14 @@ interface ganjinehState {
   phoneNumber: string,
   isSignedIn: boolean,
   activeGames: any[],
+  canFetchGames: boolean,
   singleGame: {
     [key: string]: any
   },
   singleLevel: {
     [key: string]: any
   },
-  loading: { activeGames: boolean, singleGame: boolean, levels: boolean, singleLevel: boolean },
+  loading: { global: boolean, activeGames: boolean, singleGame: boolean, levels: boolean, singleLevel: boolean },
 }
 
 const initialState: ganjinehState = {
@@ -21,9 +22,10 @@ const initialState: ganjinehState = {
   phoneNumber: "",
   isSignedIn: false,
   activeGames: [],
+  canFetchGames: true,
   singleGame: {},
   singleLevel: {},
-  loading: { activeGames: true, singleGame: true, levels: true, singleLevel: true },
+  loading: { global: true, activeGames: true, singleGame: true, levels: true, singleLevel: true },
 };
 
 const ganjinehSlice = createSlice({
@@ -45,11 +47,17 @@ const ganjinehSlice = createSlice({
     setActiveGames: (state, action: PayloadAction<[]>) => {
       state.activeGames = action.payload;
     },
+    setCanFetchGames: (state, action: PayloadAction<boolean>) => {
+      state.canFetchGames = action.payload;
+    },
     setSingleGame: (state, action: PayloadAction<{}>) => {
       state.singleGame = action.payload;
     },
     setSingleLevel: (state, action: PayloadAction<{}>) => {
       state.singleLevel = action.payload;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading.global = action.payload;
     },
     setActiveGamesLoading: (state, action: PayloadAction<boolean>) => {
       state.loading.activeGames = action.payload;
@@ -72,8 +80,10 @@ export const {
   setPhoneNumber,
   setIsSignedIn,
   setActiveGames,
+  setCanFetchGames,
   setSingleGame,
   setSingleLevel,
+  setLoading,
   setActiveGamesLoading,
   setSingleGameLoading,
   setLevelsLoading,

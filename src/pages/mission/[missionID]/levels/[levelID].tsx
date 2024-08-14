@@ -4,7 +4,7 @@ import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSingleLevelLoading, setSingleLevel } from '@/features/ganjinehSlice';
+import { setSingleLevelLoading, setSingleLevel, setSingleGame } from '@/features/ganjinehSlice';
 import axios from 'axios';
 import { options } from '@/config/api';
 import { useParams } from 'next/navigation'
@@ -36,9 +36,11 @@ export default function Questions() {
 
   const [answer, setAnswer] = useState('');
 
+  const singleGame = useSelector((state: RootState) => state.ganjinehStreet.singleGame);
   const singleLevel = useSelector((state: RootState) => state.ganjinehStreet.singleLevel);
   const singleLevelLoading = useSelector((state: RootState) => state.ganjinehStreet.loading.singleLevel);
-
+  const firstName = useSelector((state: RootState) => state.ganjinehStreet.firstName);
+  const lastName = useSelector((state: RootState) => state.ganjinehStreet.lastName);
 
 
 
@@ -90,9 +92,20 @@ export default function Questions() {
     }
   }
 
+  const fetchSingleGame = async () => {
+    try {
+      const { data } = await axios.get(`/api/missions/${missionId}`, options);
+      dispatch(setSingleGame(data));
+
+    } catch (error: any) {
+
+    }
+  }
+
   useEffect(() => {
     fetchSingleLevel()
     fetchGameData()
+    fetchSingleGame()
     dispatch(setSingleLevelLoading(false));
   }, [missionId, levelId, currentLevel])
 
@@ -177,7 +190,13 @@ export default function Questions() {
         </CacheProvider>
       }
       {isLevelDone && <SuccessMessage message={isLevelDone} />}
-      {isWinner && <WinnerPage />}
+      {isWinner && 
+        <WinnerPage 
+          fullName={`${firstName} ${lastName}`}
+          game={singleGame.name}
+          location={singleGame.location}
+        />
+      }
       {errorMessage &&
         <ErrorMessage message={errorMessage} />
       }

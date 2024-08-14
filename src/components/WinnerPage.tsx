@@ -1,15 +1,20 @@
 import { Container, Typography, Box, TextField, Button, Grid } from '@mui/material';
-import { CacheProvider } from '@emotion/react';
 import router from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Confetti from 'react-confetti'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { jalaliDate } from "@/components/ActiveGames";
 
 
 
+interface Props {
+  fullName: string,
+  game: string,
+  location: string
+}
 
-export default function WinnerPage() {
+export default function WinnerPage(props: Props) {
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
 
@@ -51,7 +56,7 @@ export default function WinnerPage() {
                 نام:
               </Typography>
               <Typography variant='subtitle1' className="text-base">
-                علیرضا محمدی
+                {props.fullName}
               </Typography>
             </div>
             <div className="flex justify-between">
@@ -59,28 +64,23 @@ export default function WinnerPage() {
                 بازی:
               </Typography>
               <Typography variant='subtitle1' className="text-base">
-                ماموریت پارک درخشان
+                {props.game}
               </Typography>
             </div>
             <div className="flex items-center justify-between">
               <Typography variant='subtitle1' className="text-base">
-                تاریخ و مکان:
+                مکان:
               </Typography>
-              <div className="flex flex-col">
-                <Typography variant='subtitle1' className="text-base">
-                  ۵ مرداد ۱۴۰۳
-                </Typography>
-                <Typography variant='subtitle1' className="text-base">
-                  پارک درخشان
-                </Typography>
-              </div>
+              <Typography variant='subtitle1' className="text-base">
+                {props.location}
+              </Typography>
             </div>
             <div className="flex justify-between">
               <Typography variant='subtitle1' className="text-base">
                 زمان:
               </Typography>
               <Typography variant='subtitle1' className="text-base">
-                ساعت ۱۶:۰۱
+                {jalaliDate(new Date().getTime() / 1000)}
               </Typography>
             </div>
           </div>
