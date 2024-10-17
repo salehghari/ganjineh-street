@@ -1,4 +1,4 @@
-import { Container, Typography, Box, TextField, Button, Grid } from '@mui/material';
+import { Container, Typography, Box, TextField, Button, Grid, Alert } from '@mui/material';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -12,10 +12,12 @@ import { useEffect, useState } from 'react';
 import { RootState } from '@/app/store';
 import { useRouter } from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import ErrorMessage from '@/components/ErrorMessage';
 import Image from 'next/image';
 import WinnerPage from '@/components/WinnerPage';
 import SuccessMessage from '@/components/SuccessMessage';
+import Link from 'next/link';
 
 
 
@@ -26,7 +28,11 @@ export default function Questions() {
   const [answerErrorMessage, setAnswerErrorMessage] = useState('');
   const [isWinner, setIsWinner] = useState(false);
   const [currentLevel, setCurrentLevel] = useState('');
+  const [currentLevelStartedAt, setCurrentLevelStartedAt] = useState<number>(0);
+  const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+  const [timeLeftToShowHint, setTimeLeftToShowHint] = useState<number>(-1);
   const [isLevelDone, setIsLevelDone] = useState('');
+  const [hintText, setHintText] = useState("");
 
 
 
@@ -57,6 +63,7 @@ export default function Questions() {
         const { data } = await axios.get(`/api/games/${missionId}`, options);
 
         setCurrentLevel(data.currentLevel)
+        setCurrentLevelStartedAt(data.currentLevelStartedAt)
       } catch (error: any) {
 
       }
@@ -90,7 +97,7 @@ export default function Questions() {
         setErrorMessage("لطفا بعدا امتحان کنید.")
       }
     }
-  }
+  }  
 
   const fetchSingleGame = async () => {
     try {
@@ -100,6 +107,46 @@ export default function Questions() {
     } catch (error: any) {
 
     }
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const timeElapsed = currentTimeInSeconds - currentLevelStartedAt;
+      const newTimeLeft = singleLevel.hintTimer - timeElapsed;
+
+      if (newTimeLeft <= 0) {
+        fetchSingleLevel();
+        setTimeLeftToShowHint(0);
+        setHintText(singleLevel.hint)
+        clearInterval(interval);
+      } else {
+        setTimeLeftToShowHint(newTimeLeft);
+      }
+      
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [currentLevelStartedAt, timeLeftToShowHint, isWinner, singleLevel]);
+
+
+  console.log(singleLevel);
+  
+  const showHintText = () => {
+    if(timeLeftToShowHint === 0 && hintText) {
+      return (
+      <Alert icon={<LightbulbIcon fontSize="inherit" />} severity="success">
+        {hintText}
+      </Alert>
+      )
+    }
+    else if(timeLeftToShowHint > 0 && !isNaN(timeLeftToShowHint)) {
+      return (
+        <Typography variant='subtitle1'>
+          <span className="text-[#256e46]">{timeLeftToShowHint}</span> ثانیه تا نمایش راهنما
+        </Typography>
+      )
+    }
+    return
   }
 
   useEffect(() => {
@@ -155,6 +202,11 @@ export default function Questions() {
                   {singleLevel.question ? singleLevel.question : "--"}
                 </Typography>
               </div>
+              <Link target="_blank" className="main-text-color" href={`https://maps.google.com/?q=${singleLevel.lat},${singleLevel.lnt}`}>
+                لوکیشن
+              </Link>
+
+              {showHintText()}
               <Box component="form" className="w-full" onSubmit={handleUserAnswer} noValidate sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>

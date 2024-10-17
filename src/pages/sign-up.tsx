@@ -10,6 +10,8 @@ import axios from 'axios';
 import { options } from '@/config/api';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
 
 
 
@@ -22,6 +24,9 @@ export default function SignUp() {
   const [timer, setTimer] = useState<number | null>(null);
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const isSignedIn = useSelector((state: RootState) => state.ganjinehStreet.isSignedIn);
+
 
   const router = useRouter()
 
@@ -93,7 +98,7 @@ export default function SignUp() {
       });      
   
       // Handle successful verification
-      router.push("/")
+      router.reload();
       setErrorMessage("");
 
     } catch (error: any) {
@@ -111,7 +116,7 @@ export default function SignUp() {
 
   return (
     <CacheProvider value={cacheRtl}>
-      <Container  component="main" maxWidth="xs">
+      {!isSignedIn && <Container  component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -231,7 +236,12 @@ export default function SignUp() {
             </Grid>
           </Grid>
         </Box>
-      </Container>
+      </Container>}
+      {isSignedIn && 
+        <Link className="flex justify-center mt-auto main-text-color main-text-hover" href="/">
+          حسابتو ساختی! برای بازگشت ضربه بزن.
+        </Link>
+      }
     </CacheProvider>
   );
 }

@@ -10,8 +10,9 @@ import axios from 'axios';
 import { options } from '@/config/api';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setFirstName, setLastName, setPhoneNumber } from '@/features/ganjinehSlice';
+import { RootState } from '@/app/store';
 
 
 export default function SignIn() {
@@ -21,6 +22,9 @@ export default function SignIn() {
   const [timer, setTimer] = useState<number | null>(null);
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const isSignedIn = useSelector((state: RootState) => state.ganjinehStreet.isSignedIn);
+
 
   const dispatch = useDispatch();
 
@@ -99,7 +103,7 @@ export default function SignIn() {
       dispatch(
         setPhoneNumber(response.data.phoneNumber)
       )
-      router.push("/");
+      router.reload();
       setErrorMessage("");
         
     } catch (error: any) {
@@ -116,7 +120,7 @@ export default function SignIn() {
 
   return (
     <CacheProvider value={cacheRtl}>
-      <Container component="main" maxWidth="xs">
+      {!isSignedIn && <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -212,7 +216,12 @@ export default function SignIn() {
             </Grid>
           </Grid>
         </Box>
-      </Container>
+      </Container>}
+      {isSignedIn && 
+        <Link className="flex justify-center mt-auto main-text-color main-text-hover" href="/">
+          وارد حسابت شدی! برای بازگشت ضربه بزن.
+        </Link>
+      }
     </CacheProvider>
   );
 }
