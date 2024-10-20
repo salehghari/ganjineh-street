@@ -173,16 +173,16 @@ export default function Levels() {
               
               if (parseInt(currentLevel) > index + 1) {
                 // completed
-                linkBtnClassName += ' bg-[#ffc700] shadow-[0_8px_0_0_rgb(230,159,0)]';
+                linkBtnClassName += ' bg-[#ffc700] shadow-[0_8px_0_0_rgb(230,159,0)] text-shadow';
               } else if (parseInt(currentLevel) === index + 1) {
                 // current level
                 linkBtnParentClassName += ' border-[15px] border-[#29754b] cursor-pointer';
-                linkBtnClassName += ' main-bg-color main-bg-hover shadow-[0_8px_0_0_rgb(48,143,90)] active:shadow-[0_6px_0_0_rgb(48,143,90)] active:translate-y-[2px]';
+                linkBtnClassName += ' main-bg-color main-bg-hover shadow-[0_8px_0_0_rgb(48,143,90)] active:shadow-[0_6px_0_0_rgb(48,143,90)] active:translate-y-[2px] text-shadow';
                 canStartTheLevel = true;
               } else {
                 // locked
                 linkBtnParentClassName += ' opacity-50';
-                linkBtnClassName += ' main-bg-color shadow-[0_8px_0_0_rgb(48,143,90)]';
+                linkBtnClassName += ' main-bg-color shadow-[0_8px_0_0_rgb(48,143,90)] text-shadow';
                 isLocked = true;
               }
               return (

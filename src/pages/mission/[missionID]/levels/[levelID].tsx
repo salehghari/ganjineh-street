@@ -129,12 +129,11 @@ export default function Questions() {
   }, [currentLevelStartedAt, timeLeftToShowHint, isWinner, singleLevel]);
 
 
-  console.log(singleLevel);
   
   const showHintText = () => {
     if(timeLeftToShowHint === 0 && hintText) {
       return (
-      <Alert icon={<LightbulbIcon fontSize="inherit" />} severity="success">
+      <Alert icon={<LightbulbIcon className="lightbulb-animation" fontSize="inherit" />} severity="success">
         {hintText}
       </Alert>
       )
@@ -188,7 +187,7 @@ export default function Questions() {
           <Container className="!flex max-sm:flex-col justify-center items-center relative gap-6 py-6 p-2" component="main">
             <div className="flex flex-col w-full lg:w-1/2 items-center">
               <ArrowBackIcon onClick={() => router.back()} className="absolute top-3 right-6 !text-3xl cursor-pointer hover:bg-slate-200 rounded-md"/>
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-2 mb-3">
                 <Typography
                   variant="h2"
                   className="font-bold !text-4xl"
@@ -207,7 +206,7 @@ export default function Questions() {
               </Link>
 
               {showHintText()}
-              <Box component="form" className="w-full" onSubmit={handleUserAnswer} noValidate sx={{ mt: 3 }}>
+              <Box component="form" className="w-full" onSubmit={handleUserAnswer} noValidate sx={{ mt: 1 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField

@@ -43,13 +43,29 @@ body {
     var(--_g) 0    100%,
     var(--_g) 100% 100%;
   background-size: 40% 40%;
-  animation:l11 1s infinite linear;
+  animation: l11 1s infinite linear;
 }
 @keyframes l11 {
     25% {background-position:100% 0   ,0 100%,100% 100%}
     50% {background-position:100% 0   ,0 0   ,100% 100%}
     75% {background-position:100% 0   ,0 0   ,0    100%}
     100%{background-position:100% 100%,0 0   ,0    100%}
+}
+
+.lightbulb-animation {
+  animation: lightbulb 1s infinite linear;
+
+}
+@keyframes lightbulb {
+    0% {transform: scale(1); rotate: 0deg;}
+    25% {transform: scale(1.1); rotate: 8deg;}
+    50% {transform: scale(1); rotate: 0deg;}
+    75%{transform: scale(1.1); rotate: -8deg;}
+    100%{transform: scale(1); rotate: 0deg;}
+}
+
+.text-shadow {
+  text-shadow: 0px 3px 5px #0000004f;
 }
 
 .main-text-color {
