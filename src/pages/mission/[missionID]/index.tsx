@@ -1,4 +1,4 @@
-import { Container, Typography, Button, Alert } from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 import PhotoIcon from '@mui/icons-material/Photo';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
@@ -42,7 +42,7 @@ export default function GameDetail() {
       }
 
     } catch (error: any) {
-      if (error.response.status == 400) {
+      if (error.response.status == 400 || error.response.status == 404) {
         setErrorMessage("چنین ماموریتی وجود ندارد.")
       }
       else if (error.response.status == 401) {
@@ -57,7 +57,7 @@ export default function GameDetail() {
   }
 
   useEffect(() => {
-    fetchSingleGame()
+    fetchSingleGame();
   }, [id])
 
 

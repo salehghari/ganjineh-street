@@ -89,6 +89,8 @@ export default function App({ Component, pageProps }: AppProps) {
         return ' مراحل | گنجینه استریت';
       case `/mission/[missionID]/levels/[levelID]`:
         return ` مرحله ${levelId ? levelId : ""} | گنجینه استریت`;
+      case '/admin-page':
+        return 'صفحه ادمین | گنجینه استریت';
       default:
         return 'گنجینه استریت';
     }

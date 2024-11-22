@@ -23,7 +23,6 @@ export default function Levels() {
   const dispatch = useDispatch();
 
 
-  const [levelCount, setLevelCount] = useState('');
   const [currentLevel, setCurrentLevel] = useState('');
   const [isGameFinished, setIsGameFinished] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -67,29 +66,6 @@ export default function Levels() {
     startSingleGame()
   }, [])
 
-  const fetchLevelCount = async () => {
-    try {
-      if (id) {
-        const { data } = await axios.get(`/api/missions/${id}`, options);
-
-        setLevelCount(data.levelCount);
-      }
-
-    } catch (error: any) {
-      if (error.response.status == 400) {
-        setErrorMessage("چنین ماموریتی وجود ندارد.")
-      }
-      else if (error.response.status == 401) {
-        setErrorMessage("برای مشاهده مراحل ثبت نام یا ورود کنید.")
-      }
-      else if (error.response.status == 500) {
-        setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
-      } else {
-        setErrorMessage("لطفا بعدا امتحان کنید.")
-      }
-    }
-  }
-
   const fetchGameData = async () => {
     try {
       if (id) {
@@ -104,7 +80,7 @@ export default function Levels() {
       }
 
     } catch (error: any) {
-      if (error.response.status == 400) {
+      if (error.response.status == 400 || error.response.status == 404) {
         setErrorMessage("چنین ماموریتی وجود ندارد.")
       }
       else if (error.response.status == 401) {
@@ -127,7 +103,7 @@ export default function Levels() {
       }
 
     } catch (error: any) {
-      if (error.response.status == 400) {
+      if (error.response.status == 400 || error.response.status == 404) {
         setErrorMessage("چنین ماموریتی وجود ندارد.")
       }
       else if (error.response.status == 401) {
@@ -143,9 +119,8 @@ export default function Levels() {
 
 
   useEffect(() => {
-    fetchLevelCount()
-    fetchGameData()
-    fetchSingleGame()
+    fetchGameData();
+    fetchSingleGame();
     dispatch(setLevelsLoading(false));
   }, [id])
 
@@ -165,7 +140,7 @@ export default function Levels() {
             </p>
           </div>
           <div className="relative">
-            {Array.from({ length: parseInt(levelCount) }, (_, index: number) => {
+            {Array.from({ length: parseInt(singleGame.levelCount) }, (_, index: number) => {
               let linkBtnParentClassName = 'w-[90px] h-[82px] bg-transparent mt-10 rounded-[50%]';
               let linkBtnClassName = 'w-16 h-[52px] select-none absolute left-[calc(50%-32px)] top-[calc(50%-30px)] flex justify-center items-center rounded-[50%] text-white text-2xl';
               let canStartTheLevel = false;
