@@ -73,7 +73,7 @@ export default function Questions() {
   const fetchSingleLevel = async () => {
     try {
       if (missionId && levelId) { 
-        if(levelId < currentLevel) {
+        if (Number(levelId) < Number(currentLevel)) {
           setIsLevelDone("شما این مرحله رو با موفقیت پشت سر گذاشتید!")
         } else {
           const { data } = await axios.get(`/api/missions/${missionId}/${levelId}`, options);
@@ -85,13 +85,13 @@ export default function Questions() {
       }
 
     } catch (error: any) {
-      if (error.response.status == 400) {
+      if (error.response?.status == 400) {
         setErrorMessage("چنین مرحله ای وجود ندارد. همچنین از ترتیب شروع مراحل اطمینان حاصل کنید.")
       }
-      else if (error.response.status == 401) {
+      else if (error.response?.status == 401) {
         setErrorMessage("برای مشاهده مراحل ثبت نام یا ورود کنید.")
       }
-      else if (error.response.status == 500) {
+      else if (error.response?.status == 500) {
         setErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
       } else {
         setErrorMessage("لطفا بعدا امتحان کنید.")
@@ -110,8 +110,10 @@ export default function Questions() {
   }
 
   useEffect(() => {
+    if (!currentLevelStartedAt || !singleLevel?.hintTimer || isWinner) return;
     const interval = setInterval(() => {
-      const timeElapsed = currentTimeInSeconds - currentLevelStartedAt;
+      const nowInSeconds = Math.floor(Date.now() / 1000);
+      const timeElapsed = nowInSeconds - currentLevelStartedAt;
       const newTimeLeft = singleLevel.hintTimer - timeElapsed;
 
       if (newTimeLeft <= 0) {
@@ -126,7 +128,7 @@ export default function Questions() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [currentLevelStartedAt, timeLeftToShowHint, isWinner, singleLevel]);
+  }, [currentLevelStartedAt, isWinner, singleLevel]);
 
 
   
@@ -167,10 +169,10 @@ export default function Questions() {
       setIsWinner(true)
       
     } catch (error: any) {
-      if (error.response.status == 400) {
+      if (error.response?.status == 400) {
         setAnswerErrorMessage("جواب اشتباهه!")
       }
-      else if (error.response.status == 500) {
+      else if (error.response?.status == 500) {
         setAnswerErrorMessage("در حال حاضر سرور به مشکل خورده است، بعدا امتحان کنید.")
       } else {
         setAnswerErrorMessage("لطفا بعدا امتحان کنید.")
